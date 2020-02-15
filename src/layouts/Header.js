@@ -5,24 +5,57 @@ import { jsx, css } from '@emotion/core';
 
 const nav = css`
   display: flex;
-  height: 60px;
-  padding: 0 16px;
+  height: 100%;
 
-  & div {
-    padding: 0 12px;
-    cursor: pointer;
+  a {
+    color: #000;
+    height: 100%;
+    font-weight: 700;
+    margin-right: 1em;
     align-items: center;
     display: inline-flex;
-
+    text-decoration: none;
     &.title {
       font-size: 1.5rem;
-      font-weight: bold;
       text-transform: uppercase;
+
+      @media (max-width: 1199.98px) {
+        font-size: 0;
+      }
+    }
+  }
+
+  i.icon {
+    color: #1aaaba;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    animation: spin 1.5s infinite linear;
+  }
+
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+    }
+  }
+
+  .subtitle {
+    font-size: 0;
+
+    @media (max-width: 1199.98px) {
+      font-size: 1.2rem;
+      font-weight: bold;
+      align-items: center;
+      display: inline-flex;
     }
 
-    & a {
-      color: #000;
-      text-decoration: none;
+    p {
+      margin: 0;
+      margin-left: 0.5rem;
     }
   }
 `;
@@ -31,11 +64,11 @@ const Header = () => {
   return (
     <header>
       <nav css={nav}>
-        <div className="title">
-          <Link to="/">icondelta</Link>
-        </div>
         <div>
-          <Link to="/trade">Trade</Link>
+          <Link to="/" className="title">
+            <i className="material-icons icon">autorenew</i>
+            icondelta
+          </Link>
         </div>
       </nav>
     </header>

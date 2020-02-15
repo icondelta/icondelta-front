@@ -1,31 +1,21 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Trade from '../pages/Trade';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-const routes = [
-  {
-    path: '/',
-    exact: true,
-    component: Home,
-  },
-  {
-    path: '/trade',
-    component: Trade,
-  },
-];
+import Trade from '../pages/Trade';
+import Error from '../pages/Error';
 
 const Router = () => {
   return (
     <Switch>
-      {routes.map((route, i) => (
-        <Route
-          key={i}
-          exact={route.exact}
-          path={route.path}
-          render={props => <route.component {...props} />}
-        />
-      ))}
+      <Route exact path="/">
+        <Redirect to="/trade/AC3" />
+      </Route>
+      <Route path="/trade/:symbol" component={Trade} />
+      <Route
+        component={({ location }) => (
+          <Error status={404} message="Page not found." location={location} />
+        )}
+      />
     </Switch>
   );
 };
