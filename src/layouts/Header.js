@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { TokenContext } from '../contexts/TokenContext';
 
 const nav = css`
-  display: flex;
   height: 100%;
+  display: flex;
 
   a {
     color: #000;
@@ -61,6 +62,8 @@ const nav = css`
 `;
 
 const Header = () => {
+  const { currToken: token } = useContext(TokenContext);
+
   return (
     <header>
       <nav css={nav}>
@@ -69,6 +72,9 @@ const Header = () => {
             <i className="material-icons icon">autorenew</i>
             icondelta
           </Link>
+        </div>
+        <div className="subtitle">
+          <p>{`${token.symbol} ${token.name}`}</p>
         </div>
       </nav>
     </header>
