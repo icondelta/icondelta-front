@@ -19,15 +19,7 @@ body {
   box-sizing: inherit;
 }
 
-.card {
-  overflow: hidden;
-  background-color: #fff;
-  border: 1px solid #e4e5e8;
-  border-radius: 8px;
-  display: inline-flex;
-  flex-direction: column;
-  box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
-
+#root {
   -ms-overflow-style: -ms-autohiding-scrollbar;
   ::-webkit-scrollbar {
     cursor: pointer;
@@ -42,6 +34,16 @@ body {
     border-radius: 8px;
     background-color: transparent;
   }
+}
+
+.card {
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #e4e5e8;
+  border-radius: 8px;
+  display: inline-flex;
+  flex-direction: column;
+  box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
 
   .card__title {
     margin: 0;
@@ -60,16 +62,22 @@ body {
 }
 
 header {
-  height: 60px;
+  height: 64px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
 }
 
-header,
+header > nav,
 .container,
 footer {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 8px;
+}
+
+.container {
+  padding-top: 8px;
 }
 
 footer {
@@ -85,7 +93,7 @@ footer {
     height: 50px;
   }
 
-  header,
+  header > nav,
   .container,
   footer {
     margin: 0;
@@ -99,10 +107,10 @@ footer {
     font-size: 12px;
   }
 
-  header,
+  header > nav,
   .container,
   footer {
-    padding: 4px 8px;
+    padding: 8px;
   }
 
   footer {
