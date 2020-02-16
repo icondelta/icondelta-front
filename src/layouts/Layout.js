@@ -4,9 +4,9 @@ import Header from './Header';
 import Footer from './Footer';
 import TokenContextProvider from '../contexts/TokenContext';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, ...props }) => {
   return (
-    <TokenContextProvider>
+    <TokenContextProvider {...props}>
       <Header />
       <main className="container">{children}</main>
       <Footer />

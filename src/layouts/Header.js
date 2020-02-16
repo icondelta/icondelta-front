@@ -62,7 +62,7 @@ const nav = css`
 `;
 
 const Header = () => {
-  const { currToken } = useContext(TokenContext);
+  const { currToken: token } = useContext(TokenContext);
 
   return (
     <header>
@@ -74,7 +74,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="subtitle">
-          <p>{`${currToken.symbol} ${currToken.name}`}</p>
+          <p>{`${token.symbol} ${token.name}`}</p>
         </div>
       </nav>
     </header>
