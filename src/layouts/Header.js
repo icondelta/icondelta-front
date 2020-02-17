@@ -4,35 +4,7 @@ import { Link } from 'react-router-dom';
 import { jsx, css } from '@emotion/core';
 import { TokenContext } from '../contexts/TokenContext';
 
-const nav = css`
-  height: 100%;
-  display: flex;
-
-  a {
-    color: #000;
-    height: 100%;
-    font-weight: 700;
-    margin-right: 1em;
-    align-items: center;
-    display: inline-flex;
-    text-decoration: none;
-    &.title {
-      font-size: 1.5rem;
-      text-transform: uppercase;
-
-      @media (max-width: 1199.98px) {
-        font-size: 0;
-      }
-    }
-  }
-
-  i.icon {
-    color: #1aaaba;
-    font-size: 2rem;
-    margin-right: 0.5rem;
-    animation: spin 1.5s infinite linear;
-  }
-
+const header = css`
   @keyframes spin {
     0% {
       -webkit-transform: rotate(0deg);
@@ -43,21 +15,63 @@ const nav = css`
       transform: rotate(359deg);
     }
   }
-
+  height: 60px;
+  background: #fff;
+  box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
+  nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    padding: 0 16px;
+    max-width: 1440px;
+  }
+  a {
+    color: #000;
+    height: 100%;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    align-items: center;
+    display: inline-flex;
+    text-decoration: none;
+    .icon {
+      color: #1aaaba;
+      font-size: 2rem;
+      margin-right: 0.5rem;
+      animation: spin 1.5s infinite linear;
+    }
+  }
+  .title {
+    margin-right: 1em;
+    text-transform: uppercase;
+  }
   .subtitle {
     font-size: 0;
-
-    @media (max-width: 1199.98px) {
+    p {
+      margin: 0;
+    }
+  }
+  @media (max-width: 1199.98px) {
+    height: 50px;
+    margin: 0;
+    width: 100%;
+    padding: 0 8px;
+    nav {
+      padding: 0 8px;
+    }
+    .title {
+      font-size: 0;
+    }
+    .subtitle {
       font-size: 1.2rem;
       font-weight: bold;
       align-items: center;
       display: inline-flex;
     }
-
-    p {
-      margin: 0;
-      margin-left: 0.5rem;
-    }
+  }
+  @media (max-width: 767.98px) {
+    padding: 0;
   }
 `;
 
@@ -65,8 +79,8 @@ const Header = () => {
   const { currToken: token } = useContext(TokenContext);
 
   return (
-    <header>
-      <nav css={nav}>
+    <header css={[header]}>
+      <nav>
         <div>
           <Link to="/" className="title">
             <i className="material-icons icon">autorenew</i>

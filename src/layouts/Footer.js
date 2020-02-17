@@ -3,25 +3,40 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 
 const footer = css`
-  & * {
-    display: inline-flex;
+  width: 100%;
+  padding: 40px;
+  margin: 0 auto;
+  color: #676767;
+  max-width: 1440px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 1199.98px) {
+    margin: 0;
+    width: 100%;
+    padding: 8px 16px;
+  }
+
+  @media (max-width: 767.98px) {
+    padding: 8px;
+    margin-top: 2rem;
+    align-items: flex-end;
+    flex-direction: column;
+    & > * {
+      padding-top: 0.5rem;
+    }
   }
 
   a {
     color: #414141;
     text-decoration: none;
-
-    .icon {
-      fill: none;
-      stroke-width: 2;
-      stroke: currentColor;
-      vertical-align: middle;
-    }
   }
-
-  p {
-    margin: auto 0;
-    color: #676767;
+  .icon {
+    fill: none;
+    stroke-width: 2;
+    stroke: currentColor;
+    vertical-align: middle;
   }
 `;
 
