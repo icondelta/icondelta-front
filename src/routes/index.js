@@ -9,10 +9,10 @@ const Router = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <Redirect to="/trade/AC3" />
+        <Redirect to="/AC3" />
       </Route>
       <Route
-        path="/trade/:symbol"
+        path="/:symbol"
         component={props => (
           <Layout {...props}>
             <Trade {...props} />

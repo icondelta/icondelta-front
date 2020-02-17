@@ -25,7 +25,7 @@ export default ({ children, ...props }) => {
   }, [currToken, props.match]);
 
   return !currToken ? (
-    <Redirect to="/trade/AC3" />
+    <Redirect to="/AC3" />
   ) : (
     <TokenContext.Provider value={{ currToken, tokens, changeCurrToken, changeTokens }}>
       {children}
