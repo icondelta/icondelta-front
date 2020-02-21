@@ -1,34 +1,25 @@
-import React, { useState, createContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useEffect, createContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { getToken } from '../common/utils';
+import { useContext } from 'react';
 
-import { TOKENS } from '../common/consts';
-import { findToken } from '../common/utils';
+const TokenContext = createContext();
 
-export const TokenContext = createContext();
+export const useTokenContext = () => useContext(TokenContext);
 
-export default ({ children, ...props }) => {
-  const [currToken, setCurrToken] = useState(findToken(props.match.params.symbol));
-  const [tokens, setTokens] = useState(TOKENS);
-  const changeCurrToken = token => setCurrToken(token);
-  const changeTokens = tokens => setTokens(tokens);
+export default ({ children }) => {
+  const { symbol } = useParams();
+  const [token, setToken] = useState(getToken(symbol));
 
   useEffect(() => {
-    const symbol = props.match.params.symbol;
-
-    if (currToken && currToken.symbol !== symbol) {
-      setCurrToken(findToken(symbol));
+    const currToken = getToken(symbol);
+    if (currToken && token !== currToken) {
+      setToken({ ...currToken });
     }
-
     return () => {
-      console.log('layout unmounted', props.match.params);
+      console.log('unmount TokenContext!');
     };
-  }, [currToken, props.match]);
+  }, [symbol]);
 
-  return !currToken ? (
-    <Redirect to="/trade/AC3" />
-  ) : (
-    <TokenContext.Provider value={{ currToken, tokens, changeCurrToken, changeTokens }}>
-      {children}
-    </TokenContext.Provider>
-  );
+  return <TokenContext.Provider value={{ token, setToken }}>{children}</TokenContext.Provider>;
 };
