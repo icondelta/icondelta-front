@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { TokenContext } from '../contexts/TokenContext';
+import { useTokenContext } from '../contexts/TokenContext';
 
 const header = css`
   @keyframes spin {
@@ -26,7 +25,7 @@ const header = css`
     padding: 0 16px;
     max-width: 1440px;
   }
-  a {
+  span {
     color: #000;
     height: 100%;
     font-weight: 700;
@@ -76,19 +75,19 @@ const header = css`
 `;
 
 const Header = () => {
-  const { currToken: token } = useContext(TokenContext);
+  const { token } = useTokenContext();
 
   return (
     <header css={[header]}>
       <nav>
         <div>
-          <Link to="/" className="title">
+          <span className="title">
             <i className="material-icons icon">autorenew</i>
             icondelta
-          </Link>
+          </span>
         </div>
         <div className="subtitle">
-          <p>{`${token.symbol} ${token.name}`}</p>
+          <p>{`${token?.symbol || ''} ${token?.name || ''}`}</p>
         </div>
       </nav>
     </header>

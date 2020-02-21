@@ -1,6 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { useLocation } from 'react-router-dom';
 
 const error = css`
   width: 100%;
@@ -14,7 +15,9 @@ const error = css`
   }
 `;
 
-const Error = ({ status, message, location }) => {
+const Error = ({ status, message }) => {
+  const location = useLocation();
+
   return (
     <div className="card" css={error}>
       <h1>{status}</h1>
