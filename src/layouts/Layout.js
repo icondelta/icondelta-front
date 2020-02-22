@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import TokenContextProvider from '../contexts/TokenContext';
 import TokenListContextProvider from '../contexts/TokenListContext';
+import UiContextProvider from '../contexts/UiContext';
 
 const container = css`
   margin: 0 auto;
@@ -26,8 +27,10 @@ const Layout = ({ children }) => {
     <>
       <TokenListContextProvider>
         <TokenContextProvider>
-          <Header />
-          <main css={[container]}>{children}</main>
+          <UiContextProvider>
+            <Header />
+            <main css={[container]}>{children}</main>
+          </UiContextProvider>
           <Footer />
         </TokenContextProvider>
       </TokenListContextProvider>

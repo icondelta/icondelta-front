@@ -4,23 +4,22 @@ import { jsx, css } from '@emotion/core';
 import InputWrapper from '../common/InputWrapper';
 
 const inputWrapperStyle = css`
-  width: calc(50% - 0.5rem);
-
-  &:last-of-type {
-    margin-left: 1rem;
-  }
-
   label {
     padding: 0.5rem;
     display: inline-flex;
   }
 
+  div {
+    display: flex;
+  }
+
   input {
-    width: 70%;
+    width: auto;
+    flex: 2 0 auto;
   }
 
   button {
-    width: 30%;
+    flex: 1 0 auto;
     margin: 0;
     border: none;
     border-radius: 4px;
@@ -49,8 +48,8 @@ const formMenu = css`
 const BalanceForm = ({ token }) => {
   const [type, setType] = useState('DEPOSIT');
   const [inputs, setInputs] = useState({
-    withdrawal: 0,
-    deposit: 0,
+    tokenAmount: '',
+    icxAmount: '',
   });
 
   const changeType = ({ target }) => {
@@ -77,15 +76,15 @@ const BalanceForm = ({ token }) => {
         WITHDRAW
       </span>
       <div style={{ display: 'flex' }}>
-        <InputWrapper id="withdraw" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
+        <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
-            <input id="withdraw" type="number" value={inputs.withdrawal} onChange={handleChange} />
+            <input id="tokenAmount" type="number" value={inputs.tokenAmount} onChange={handleChange} placeholder="0" />
             <button>{type}</button>
           </div>
         </InputWrapper>
-        <InputWrapper id="deposit" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
+        <InputWrapper id="icxAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
-            <input id="deposit" type="number" value={inputs.deposit} onChange={handleChange} />
+            <input id="icxAmount" type="number" value={inputs.icxAmount} onChange={handleChange} placeholder="0" />
             <button>{type}</button>
           </div>
         </InputWrapper>

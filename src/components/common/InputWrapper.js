@@ -3,7 +3,12 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 
 const inputWrapper = css`
-  display: inline-block;
+  flex: 1 1 auto;
+  position: relative;
+
+  & + & {
+    margin-left: 1rem;
+  }
 
   label {
     text-transform: capitalize;

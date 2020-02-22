@@ -2,6 +2,7 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { useTokenContext } from '../contexts/TokenContext';
+import { useUiContext } from '../contexts/UiContext';
 
 const header = css`
   @keyframes spin {
@@ -46,6 +47,7 @@ const header = css`
     text-transform: uppercase;
   }
   .subtitle {
+    cursor: pointer;
     font-size: 0;
     p {
       margin: 0;
@@ -75,6 +77,7 @@ const header = css`
 `;
 
 const Header = () => {
+  const { toggleMenuVisible } = useUiContext();
   const { token } = useTokenContext();
 
   return (
@@ -86,7 +89,7 @@ const Header = () => {
             icondelta
           </span>
         </div>
-        <div className="subtitle">
+        <div className="subtitle" onClick={toggleMenuVisible}>
           <p>{`${token?.symbol || ''} ${token?.name || ''}`}</p>
         </div>
       </nav>
