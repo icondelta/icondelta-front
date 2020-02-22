@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const tokenListItem = css`
   color: inherit;
@@ -55,8 +55,9 @@ const tokenListItem = css`
 `;
 
 const TokenListItem = ({ token }) => {
+  const { symbol } = useParams();
   return (
-    <Link to={`/${token.symbol}`} css={[tokenListItem]}>
+    <Link to={`/${token.symbol}`} className={symbol === token.symbol ? 'active' : ''} css={[tokenListItem]}>
       <ul>
         <li>
           <span>{token.symbol}</span>
