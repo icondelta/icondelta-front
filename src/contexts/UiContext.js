@@ -3,9 +3,14 @@ import { useState } from 'react';
 
 export const UiContext = createContext();
 
-export const useUiContext = useContext(UiContext);
+export const useUiContext = () => useContext(UiContext);
 
 export default ({ children }) => {
   const [menuVisible, setMenuVisible] = useState(false);
-  return <UiContext.Provider value={{ menuVisible, setMenuVisible }}>{children}</UiContext.Provider>;
+
+  const toggleMenuVisible = _ => {
+    setMenuVisible(prev => !prev);
+  };
+
+  return <UiContext.Provider value={{ menuVisible, setMenuVisible, toggleMenuVisible }}>{children}</UiContext.Provider>;
 };
