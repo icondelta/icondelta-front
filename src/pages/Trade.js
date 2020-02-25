@@ -5,7 +5,7 @@ import { jsx, css } from '@emotion/core';
 import Layout from '../layouts/Layout';
 import TokenList from '../components/token/TokenList';
 import TokenBalance from '../components/token/TokenBalance';
-import TradeList from '../components/trade/TradeList';
+import TradeHistory from '../components/trade/TradeHistory';
 import media from '../common/media';
 
 const wrapper = css`
@@ -17,19 +17,21 @@ const wrapper = css`
     width: 100%;
   }
 
-  div {
-    height: 80vh;
+  & > div {
+    /* height: 80vh; */
+    max-height: 840px;
+
     &:first-of-type {
       margin-right: 8px;
-      flex: 1 1 auto;
+      flex: 1 1;
     }
     &:nth-of-type(2) {
       margin: 0 8px;
-      flex: 1.5 1 auto;
+      flex: 1.4 1;
     }
     &:last-of-type {
       margin-left: 8px;
-      flex: 1.3 1 auto;
+      flex: 1 1;
     }
   }
 `;
@@ -40,7 +42,7 @@ const Trade = props => {
       <TokenList />
       <TokenBalance />
       <div css={[wrapper]}>
-        <TradeList />
+        <TradeHistory />
         <div className="card"></div>
         <div className="card"></div>
       </div>
