@@ -6,8 +6,7 @@ import TradeHistoryItem from './TradeHistoryItem';
 import { tradeHistory } from '../../common/dummy';
 
 const tradeHistoryHeader = css`
-  margin: 8px;
-  padding: 0 8px;
+  margin: 8px 8px 0;
 
   ul {
     display: flex;
@@ -39,9 +38,9 @@ const TradeHistory = () => {
     <div className="card ">
       <div css={[tradeHistoryHeader]}>
         <ul>
-          <li>Time</li>
-          <li>Price</li>
-          <li>Amount</li>
+          <li>TIME</li>
+          <li>PRICE</li>
+          <li>AMOUNT</li>
         </ul>
       </div>
       <div className="inner_scroll">

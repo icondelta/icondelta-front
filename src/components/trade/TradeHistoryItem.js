@@ -2,10 +2,11 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 
 const tradeHistoryWrapper = css`
-  padding: 4px 8px;
+  padding: 0 4px;
+  line-height: 2;
+
   ul {
     display: flex;
     list-style: none;
@@ -19,6 +20,7 @@ const tradeHistoryWrapper = css`
 
     &:first-of-type {
       flex: 1.6 0;
+      margin-left: 4px;
     }
     &:nth-of-type(2) {
       flex: 2 0;
@@ -30,19 +32,17 @@ const tradeHistoryWrapper = css`
 `;
 
 const colorByType = type => css`
-  ul {
+  li {
     color: ${type === 'buy' ? '#e12343' : '#1763b6'};
     background-color: ${type === 'buy' ? 'rgba(225, 35, 67, .05)' : 'rgba(23, 99, 182, .05)'};
   }
 `;
 
-dayjs.extend(utc);
-
 const TradeListItem = ({ data }) => {
   return (
     <div css={[tradeHistoryWrapper, colorByType(data.type)]}>
       <ul>
-        <li>{dayjs.utc(data.tradedAt.toUTCString()).format('HH:mm:ssUTC')}</li>
+        <li>{dayjs(data.tradedAt.toUTCString()).format('HH:mm:ssUTC')}</li>
         <li>{data.price}</li>
         <li>{data.amount}</li>
       </ul>
