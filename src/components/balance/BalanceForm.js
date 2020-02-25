@@ -1,51 +1,77 @@
 import React, { useState, useCallback } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import media from '../../common/media';
 import InputWrapper from '../common/InputWrapper';
+import { useTokenContext } from '../../contexts/TokenContext';
+
+const balanceFormWrapper = css`
+  width: calc(72% - 16px);
+  ${media.down('lg')} {
+    width: 100%;
+  }
+  margin-top: 16px;
+  ${media.down('sm')} {
+    margin-top: 8px;
+  }
+
+  & > div {
+    display: flex;
+  }
+`;
 
 const inputWrapperStyle = css`
   label {
     padding: 0.5rem;
     display: inline-flex;
   }
-
   div {
     display: flex;
   }
-
   input {
-    width: auto;
-    flex: 2 0 auto;
+    ${media.up('xs')} {
+      width: auto;
+    }
+    flex: 2 1;
+    border: 1px solid #e4e5e8;
   }
-
   button {
-    flex: 1 0 auto;
+    flex: 1 1;
     margin: 0;
     border: none;
     border-radius: 4px;
     padding: 8px 12px;
+    color: #fafafa;
+    background-color: #1aaaba;
   }
 `;
 
 const formMenu = css`
-  span {
+  .deposit,
+  .withdraw {
+    flex: auto;
     cursor: pointer;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     display: inline-flex;
-    padding: 0.5em 1em;
-    border: 2px solid transparent;
-    min-width: 15%;
+    padding: 1em;
+    border: 1px solid transparent;
+    background-color: #eeeeee;
     justify-content: center;
 
+    &:first-of-type {
+      border-top-left-radius: 8px;
+    }
+    &:last-of-type {
+      border-top-right-radius: 8px;
+    }
+
     &.active {
-      background: #fafafa;
-      border-bottom: 2px solid #1aaaba;
+      background: #fff;
     }
   }
 `;
 
-const BalanceForm = ({ token }) => {
+const TokenBalanceForm = () => {
+  const { token } = useTokenContext();
   const [type, setType] = useState('DEPOSIT');
   const [inputs, setInputs] = useState({
     tokenAmount: '',
@@ -68,14 +94,16 @@ const BalanceForm = ({ token }) => {
   );
 
   return (
-    <div css={formMenu}>
-      <span onClick={changeType} className={type === 'DEPOSIT' ? 'active' : ''}>
-        DEPOSIT
-      </span>
-      <span onClick={changeType} className={type === 'WITHDRAW' ? 'active' : ''}>
-        WITHDRAW
-      </span>
-      <div style={{ display: 'flex' }}>
+    <div className="card" css={[balanceFormWrapper]}>
+      <div css={formMenu}>
+        <div onClick={changeType} className={type === 'DEPOSIT' ? 'deposit active' : 'deposit'}>
+          DEPOSIT
+        </div>
+        <div onClick={changeType} className={type === 'WITHDRAW' ? 'withdraw active' : 'withdraw'}>
+          WITHDRAW
+        </div>
+      </div>
+      <div className="card__body">
         <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
             <input id="tokenAmount" type="number" value={inputs.tokenAmount} onChange={handleChange} placeholder="0" />
@@ -93,4 +121,4 @@ const BalanceForm = ({ token }) => {
   );
 };
 
-export default BalanceForm;
+export default TokenBalanceForm;

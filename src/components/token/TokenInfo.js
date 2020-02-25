@@ -1,9 +1,8 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import BalanceForm from './TokenBalanceForm';
-import { useTokenContext } from '../../contexts/TokenContext';
 import media from '../../common/media';
+import { useTokenContext } from '../../contexts/TokenContext';
 
 const balance = css`
   width: calc(72% - 16px);
@@ -27,7 +26,6 @@ const tokenInfo = css`
 
 const tokenPrice = css`
   margin: 8px 0 0;
-  color: #1aaaba;
   font-size: 2rem;
 `;
 
@@ -40,11 +38,10 @@ const Balance = () => {
         <div css={[tokenInfo]}>
           <span className="symbol">{token?.symbol || ''}</span>
           <span className="name">{token?.name || ''}</span>
-          <p css={[tokenPrice]}>{token?.lastPrice || '-'}</p>
         </div>
       </div>
       <div className="card__body">
-        <BalanceForm token={token} />
+        <p css={[tokenPrice]}>{token?.lastPrice || '-'}</p>
       </div>
     </div>
   );

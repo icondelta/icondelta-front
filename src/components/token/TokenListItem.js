@@ -54,10 +54,15 @@ const tokenListItem = css`
   }
 `;
 
-const TokenListItem = ({ token }) => {
+const TokenListItem = ({ token, onClick }) => {
   const { symbol } = useParams();
   return (
-    <Link to={`/${token.symbol}`} className={symbol === token.symbol ? 'active' : ''} css={[tokenListItem]}>
+    <Link
+      to={`/${token.symbol}`}
+      className={symbol === token.symbol ? 'active' : ''}
+      css={[tokenListItem]}
+      onClick={onClick}
+    >
       <ul>
         <li>
           <span>{token.symbol}</span>
