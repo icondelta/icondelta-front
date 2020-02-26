@@ -1,11 +1,10 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { useTokenContext } from '../../contexts/TokenContext';
+import OrderBook from './OrderBook';
 
-import TradeHistoryItem from './TradeHistoryItem';
-import { tradeHistory } from '../../common/dummy';
-
-const tradeHistoryHeader = css`
+const orderBookHeader = css`
   margin: 8px 8px 0;
 
   ul {
@@ -22,10 +21,10 @@ const tradeHistoryHeader = css`
     justify-content: center;
 
     &:first-of-type {
-      flex: 1.6 0;
+      flex: 1 0;
     }
     &:nth-of-type(2) {
-      flex: 2 0;
+      flex: 1 0;
     }
     &:last-of-type {
       flex: 1 0;
@@ -33,23 +32,24 @@ const tradeHistoryHeader = css`
   }
 `;
 
-const TradeHistory = () => {
+const Order = () => {
+  const { token } = useTokenContext();
+
   return (
-    <div className="card ">
-      <div css={[tradeHistoryHeader]}>
+    <div className="card">
+      <div css={[orderBookHeader]}>
         <ul>
-          <li>TIME</li>
           <li>PRICE</li>
-          <li>AMOUNT</li>
+          <li>{token.symbol}</li>
+          <li>ICX</li>
         </ul>
       </div>
       <div className="inner_scroll">
-        {tradeHistory.map(data => (
-          <TradeHistoryItem key={data.txHash} data={data} />
-        ))}
+        <OrderBook type="sell" />
+        <OrderBook type="buy" />
       </div>
     </div>
   );
 };
 
-export default TradeHistory;
+export default Order;

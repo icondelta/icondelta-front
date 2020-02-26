@@ -27,7 +27,7 @@ const header = css`
     max-width: 1440px;
   }
   span {
-    color: #000;
+    color: #1aaaba;
     height: 100%;
     font-weight: 700;
     font-size: 1.5rem;

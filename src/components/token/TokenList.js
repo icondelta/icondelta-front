@@ -1,21 +1,40 @@
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
 import media from '../../common/media';
 import TokenListItem from './TokenListItem';
 import TokenSearchBar from './TokenSearchBar';
-import { useTokenListContext } from '../../contexts/TokenListContext';
-import { useCallback } from 'react';
 import { useUiContext } from '../../contexts/UiContext';
+import { useTokenListContext } from '../../contexts/TokenListContext';
 
 const tokenList = css`
   top: 8px;
-  width: 28%;
   position: sticky;
-  height: 650px;
   max-height: 650px;
   float: right;
+
+  width: 28%;
+  height: 650px;
+  ${media.down('lg')} {
+    top: 58px;
+    min-width: 300px;
+    z-index: 100;
+    float: none;
+    position: absolute;
+    overflow: hidden;
+    max-height: 80%;
+  }
+  ${media.down('md')} {
+    width: 35%;
+    max-height: 70%;
+  }
+  ${media.down('sm')} {
+    width: 100%;
+    height: 100%;
+    top: 30px;
+    left: 0;
+  }
 
   .card__body {
     display: flex;
@@ -33,22 +52,6 @@ const tokenList = css`
       font-size: 1.5rem;
       font-weight: bold;
     }
-  }
-
-  ${media.down('lg')} {
-    top: 58px;
-    width: 28%;
-    min-width: 300px;
-    z-index: 100;
-    float: none;
-    position: absolute;
-    overflow: hidden;
-    max-height: 80%;
-  }
-
-  ${media.down('md')} {
-    width: 35%;
-    max-height: 70%;
   }
 `;
 
@@ -105,7 +108,7 @@ const TokenList = () => {
         <div className="card__body">
           <div className="inner_scroll">
             {tokensByText.length ? (
-              tokensByText.map(token => <TokenListItem key={token.address} token={token} />)
+              tokensByText.map(token => <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />)
             ) : (
               <p>No results found.</p>
             )}
