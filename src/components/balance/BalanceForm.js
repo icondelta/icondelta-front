@@ -52,7 +52,7 @@ const formMenu = css`
     flex: auto;
     cursor: pointer;
     display: inline-flex;
-    padding: 1em;
+    line-height: 2.5;
     border: 1px solid transparent;
     background-color: #eeeeee;
     justify-content: center;

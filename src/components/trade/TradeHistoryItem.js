@@ -42,7 +42,7 @@ const TradeListItem = ({ data }) => {
   return (
     <div css={[tradeHistoryWrapper, colorByType(data.type)]}>
       <ul>
-        <li>{dayjs(data.tradedAt.toUTCString()).format('HH:mm:ssUTC')}</li>
+        <li>{dayjs(data.tradedAt).format('hh:mm:ss')}</li>
         <li>{data.price}</li>
         <li>{data.amount}</li>
       </ul>
