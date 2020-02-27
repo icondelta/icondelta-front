@@ -6,13 +6,13 @@ import OrderBookItem from './OrderBookItem';
 import { buyOrders, sellOrders } from '../../common/dummy';
 
 const orderBookWrapper = css`
-  padding: 0 4px;
+  padding: 0 8px;
 
   &:first-of-type {
-    padding-top: 4px;
+    padding-top: 8px;
   }
   &:last-of-type {
-    padding-bottom: 4px;
+    padding-bottom: 8px;
   }
 `;
 
