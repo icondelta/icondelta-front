@@ -6,13 +6,16 @@ import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 
 const balanceFormWrapper = css`
+  border-top: none;
+  margin-top: 16px;
   width: calc(72% - 16px);
+  background-color: transparent;
+
+  ${media.up('lg')} {
+    margin-left: 16px;
+  }
   ${media.down('lg')} {
     width: 100%;
-  }
-  margin-top: 16px;
-  ${media.down('sm')} {
-    margin-top: 8px;
   }
 
   & > div {
@@ -21,8 +24,14 @@ const balanceFormWrapper = css`
 `;
 
 const inputWrapperStyle = css`
+  &:first-of-type {
+    margin-right: 8px;
+  }
+  &:last-of-type {
+    margin-left: 8px;
+  }
   label {
-    padding: 0.5rem;
+    padding: 8px;
     display: inline-flex;
   }
   div {
@@ -33,39 +42,45 @@ const inputWrapperStyle = css`
       width: auto;
     }
     flex: 2 1;
-    border: 1px solid #e4e5e8;
   }
   button {
     flex: 1 1;
-    margin: 0;
-    border: none;
-    border-radius: 4px;
+    color: #1aaaba;
     padding: 8px 12px;
-    color: #fafafa;
-    background-color: #1aaaba;
+    background-color: #e6f8fa;
+    margin: 0 0 0 8px;
+    ${media.down('sm')} {
+      margin: 0 0 0 4px;
+    }
   }
 `;
 
 const formMenu = css`
   .deposit,
   .withdraw {
-    flex: auto;
+    flex: 1 1;
+    color: #9e9e9e;
     cursor: pointer;
     display: inline-flex;
     line-height: 2.5;
-    border: 1px solid transparent;
+    border-top: 1px solid #eee;
     background-color: #eeeeee;
     justify-content: center;
 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
     &:first-of-type {
-      border-top-left-radius: 8px;
+      &.active {
+        color: #1aaaba;
+        background: #fff;
+      }
     }
     &:last-of-type {
-      border-top-right-radius: 8px;
-    }
-
-    &.active {
-      background: #fff;
+      &.active {
+        color: #1aaaba;
+        background: #fff;
+      }
     }
   }
 `;
