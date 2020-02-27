@@ -6,10 +6,6 @@ const inputWrapper = css`
   flex: 1 1 auto;
   position: relative;
 
-  & + & {
-    margin-left: 1rem;
-  }
-
   label {
     text-transform: capitalize;
   }
@@ -17,9 +13,10 @@ const inputWrapper = css`
   input {
     width: 100%;
     border: none;
+    text-align: right;
     border-radius: 4px;
     padding: 8px 12px;
-    background-color: #fafafa;
+    border: 1px solid #eee;
   }
 `;
 

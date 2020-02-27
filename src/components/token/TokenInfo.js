@@ -6,6 +6,9 @@ import { useTokenContext } from '../../contexts/TokenContext';
 
 const balance = css`
   width: calc(72% - 16px);
+  ${media.up('lg')} {
+    margin-left: 16px;
+  }
   ${media.down('lg')} {
     width: 100%;
   }

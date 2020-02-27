@@ -50,7 +50,16 @@ const header = css`
     cursor: pointer;
     font-size: 0;
     p {
+      color: #1aaaba;
       margin: 0;
+      display: flex;
+      align-items: center;
+    }
+    i {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-left: 4px;
+      transition: transform ease 0.3s;
     }
   }
   @media (max-width: 1199.98px) {
@@ -76,8 +85,14 @@ const header = css`
   }
 `;
 
+const menuArrow = visible => css`
+  i {
+    transform: rotate(${visible ? '180deg' : 0});
+  }
+`;
+
 const Header = () => {
-  const { toggleMenuVisible } = useUiContext();
+  const { menuVisible, toggleMenuVisible } = useUiContext();
   const { token } = useTokenContext();
 
   return (
@@ -90,7 +105,10 @@ const Header = () => {
           </span>
         </div>
         <div className="subtitle" onClick={toggleMenuVisible}>
-          <p>{`${token?.symbol || ''} ${token?.name || ''}`}</p>
+          <p css={[menuArrow(menuVisible)]}>
+            {`${token?.symbol || ''} ${token?.name || ''}`}
+            <i className="material-icons">keyboard_arrow_down</i>
+          </p>
         </div>
       </nav>
     </header>

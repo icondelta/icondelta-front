@@ -1,6 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import media from '../common/media';
 
 const footer = css`
   width: 100%;
@@ -12,13 +13,12 @@ const footer = css`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1199.98px) {
+  ${media.down('lg')} {
     margin: 0;
     width: 100%;
     padding: 8px 16px;
   }
-
-  @media (max-width: 767.98px) {
+  ${media.down('md')} {
     padding: 8px;
     margin-top: 2rem;
     align-items: flex-end;

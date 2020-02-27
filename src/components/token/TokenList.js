@@ -12,12 +12,12 @@ const tokenList = css`
   top: 8px;
   position: sticky;
   max-height: 650px;
-  float: right;
+  float: left;
 
   width: 28%;
   height: 650px;
   ${media.down('lg')} {
-    top: 58px;
+    top: 54px;
     min-width: 300px;
     z-index: 100;
     float: none;
@@ -27,13 +27,13 @@ const tokenList = css`
   }
   ${media.down('md')} {
     width: 35%;
-    max-height: 70%;
+    max-height: 75%;
   }
   ${media.down('sm')} {
-    width: 100%;
-    height: 100%;
-    top: 30px;
     left: 0;
+    margin: 0 4px;
+    height: 100%;
+    width: calc(100% - 8px);
   }
 
   .card__body {
@@ -59,6 +59,7 @@ const overlay = visible => css`
   top: 0;
   left: 0;
   z-index: 99;
+  cursor: pointer;
   position: absolute;
 
   ${media.down('lg')} {
