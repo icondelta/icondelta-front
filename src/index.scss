@@ -8,15 +8,22 @@ html {
 body {
   margin: 0;
   width: 100%;
-  font-family: 'Ubuntu Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Ubuntu Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: #fdfdfd;
 }
 
 * {
   box-sizing: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 input:focus,
@@ -42,15 +49,28 @@ button:focus {
 
   .card__title {
     padding: 16px 16px 0;
+
+    @media (max-width: 767.95px) {
+      padding: 8px 8px 0;
+    }
   }
 
   .card__body {
     padding: 8px 16px 16px;
+
+    @media (max-width: 767.95px) {
+      padding: 8px;
+    }
   }
 
   .card__footer {
     margin-top: -8px;
     padding: 0 16px 16px;
+
+    @media (max-width: 767.95px) {
+      margin-top: -4px;
+      padding: 0 8px 8px;
+    }
   }
 }
 
