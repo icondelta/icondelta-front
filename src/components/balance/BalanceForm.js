@@ -97,16 +97,15 @@ const TokenBalanceForm = () => {
     setType(target.textContent);
   };
 
-  const handleChange = useCallback(
-    ({ target }) => {
-      const { id, value } = target;
+  const handleChange = useCallback(({ target }) => {
+    const { id, value } = target;
+    if (Number(value) >= 0 || !value) {
       setInputs({
         ...inputs,
         [id]: value,
       });
-    },
-    [inputs]
-  );
+    }
+  }, [inputs]);
 
   return (
     <div className="card" css={[balanceFormWrapper]}>
@@ -121,13 +120,13 @@ const TokenBalanceForm = () => {
       <div className="card__body">
         <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
-            <input id="tokenAmount" type="number" value={inputs.tokenAmount} onChange={handleChange} placeholder="0" />
+            <input id="tokenAmount" type="number" min={0} value={inputs.tokenAmount} onChange={handleChange} placeholder="0" />
             <button>{type}</button>
           </div>
         </InputWrapper>
         <InputWrapper id="icxAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
-            <input id="icxAmount" type="number" value={inputs.icxAmount} onChange={handleChange} placeholder="0" />
+            <input id="icxAmount" type="number" min={0} value={inputs.icxAmount} onChange={handleChange} placeholder="0" />
             <button>{type}</button>
           </div>
         </InputWrapper>
