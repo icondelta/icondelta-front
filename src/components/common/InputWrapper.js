@@ -12,11 +12,13 @@ const inputWrapper = css`
 
   input {
     width: 100%;
-    border: none;
-    text-align: right;
-    border-radius: 4px;
     padding: 8px 12px;
+    border-radius: 4px;
     border: 1px solid #eee;
+    
+    &[type="number"] {
+      text-align: right;
+    }
   }
 `;
 
