@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
@@ -25,13 +25,13 @@ const orderFormHeader = css`
     color: #9e9e9e;
     cursor: pointer;
     background-color: #eeeeee;
-    padding: 16px 8px 8px;
+    padding: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+
     &:first-of-type {
       &.active {
         color: #fafafa;
@@ -91,12 +91,15 @@ const OrderForm = () => {
     setType(target.textContent);
   };
 
-  const handleChange = ({ target }) => {
-    setOrder(prev => ({
-      ...prev,
-      [target.id]: target.value,
-    }));
-  };
+  const handleChange = useCallback(({ target }) => {
+    const { id, value } = target;
+    if (Number(value) > 0 || !value) {
+      setOrder(prev => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
+  }, [order]);
 
   const handleOrder = e => {
     e.preventDefault();
@@ -124,10 +127,10 @@ const OrderForm = () => {
           </span>
         </div>
         <InputWrapper id="price" label="Price" customStyle={[orderFormInputWrapper]}>
-          <input id="price" type="number" placeholder="0" value={order.price || ''} onChange={handleChange} />
+          <input id="price" type="number" min={0} placeholder="0" value={order.price || ''} onChange={handleChange} />
         </InputWrapper>
         <InputWrapper id="amount" label={`Amount to ${type.toLowerCase()}`} customStyle={[orderFormInputWrapper]}>
-          <input id="amount" type="number" placeholder="0" value={order.amount || ''} onChange={handleChange} />
+          <input id="amount" type="number" min={0} placeholder="0" value={order.amount || ''} onChange={handleChange} />
         </InputWrapper>
         <div style={{ paddingTop: '12px' }}>
           <span>Total:</span>

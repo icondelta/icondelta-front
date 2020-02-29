@@ -3,18 +3,9 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { useTokenContext } from '../contexts/TokenContext';
 import { useUiContext } from '../contexts/UiContext';
+import media from '../common/media';
 
 const header = css`
-  @keyframes spin {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(359deg);
-      transform: rotate(359deg);
-    }
-  }
   height: 60px;
   background: #fff;
   box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
@@ -56,13 +47,11 @@ const header = css`
       align-items: center;
     }
     i {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-left: 4px;
-      transition: transform ease 0.3s;
+      display: none;
     }
   }
-  @media (max-width: 1199.98px) {
+
+  ${media.down('lg')} {
     height: 50px;
     margin: 0;
     width: 100%;
@@ -78,9 +67,18 @@ const header = css`
       font-weight: bold;
       align-items: center;
       display: inline-flex;
+      
+      i {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-left: 4px;
+        transition: transform ease 0.3s;
+      }
     }
   }
-  @media (max-width: 767.98px) {
+  
+  ${media.down('md')} {
     padding: 0;
   }
 `;
