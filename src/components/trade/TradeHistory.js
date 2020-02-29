@@ -6,7 +6,7 @@ import TradeHistoryItem from './TradeHistoryItem';
 import { tradeHistory } from '../../common/dummy';
 
 const tradeHistoryHeader = css`
-  margin: 16px 8px 0;
+  padding: 8px 8px 0;
 
   ul {
     display: flex;

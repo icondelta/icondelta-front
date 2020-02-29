@@ -5,6 +5,8 @@ import { useTokenContext } from '../../contexts/TokenContext';
 import OrderBook from './OrderBook';
 
 const orderBookHeader = css`
+  padding: 8px 8px 0;
+
   ul {
     display: flex;
     list-style: none;
@@ -35,7 +37,7 @@ const Order = () => {
 
   return (
     <div className="card">
-      <div className="card__title" css={[orderBookHeader]}>
+      <div css={[orderBookHeader]}>
         <ul>
           <li>PRICE</li>
           <li>{token.symbol}</li>

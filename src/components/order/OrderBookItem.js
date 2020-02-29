@@ -18,14 +18,13 @@ const orderBookItemWrapper = css`
     justify-content: center;
 
     &:first-of-type {
-      flex: auto;
-      margin-left: 4px;
+      flex: 1 0;
     }
     &:nth-of-type(2) {
-      flex: auto;
+      flex: 1 0;
     }
     &:last-of-type {
-      flex: auto;
+      flex: 1 0;
     }
   }
 `;
