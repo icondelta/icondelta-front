@@ -1,51 +1,15 @@
 import React, { useCallback, useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-
+import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
-import media from '../../common/media';
 
 const orderFormWrapper = css`
-  height: auto;
-  border-top: none;
-  background: transparent;
-`;
+  border-top: 1px solid transparent;
 
-const orderFormHeader = css`
-  padding: 0;
-  ul {
-    margin: 0;
+  & > div {
     display: flex;
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    flex: 1 0;
-    color: #9e9e9e;
-    cursor: pointer;
-    background-color: #eeeeee;
-    padding: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-
-    &:first-of-type {
-      &.active {
-        color: #fafafa;
-        border-top: 1px solid #e12343;
-        background-color: #e12343;
-      }
-    }
-    &:last-of-type {
-      &.active {
-        color: #fafafa;
-        border-top: 1px solid #1763b6;
-        background-color: #1763b6;
-      }
-    }
   }
 `;
 
@@ -66,13 +30,25 @@ const orderFormInputWrapper = css`
   flex-direction: column;
 `;
 
+const activeStyle = active => css`
+  & > div:nth-of-type(${active}) {
+    color: #fafafa;
+    ${active === 1
+      ? css`
+          background-color: #e12343;
+        `
+      : css`
+          background-color: #1763b6;
+        `}
+  }
+`;
+
 const orderButton = type => css`
   width: 100%;
   color: #fafafa;
   line-height: 1.5;
   margin-top: 1rem;
   font-size: 1.2rem;
-  font-weight: bold;
   padding: 8px 16px;
   background-color: ${type === 'BUY' ? '#e12343' : '#1763b6'};
 `;
@@ -88,7 +64,9 @@ const OrderForm = () => {
   });
 
   const changeType = ({ target }) => {
-    setType(target.textContent);
+    if (type !== target.textContent) {
+      setType(target.textContent);
+    }
   };
 
   const handleChange = useCallback(({ target }) => {
@@ -99,7 +77,7 @@ const OrderForm = () => {
         [id]: value,
       }));
     }
-  }, [order]);
+  }, []);
 
   const handleOrder = e => {
     e.preventDefault();
@@ -107,11 +85,9 @@ const OrderForm = () => {
 
   return (
     <div className="card" css={[orderFormWrapper]}>
-      <div css={[orderFormHeader]}>
-        <ul onClick={changeType}>
-          <li className={type === 'BUY' ? 'active' : ''}>BUY</li>
-          <li className={type === 'BUY' ? '' : 'active'}>SELL</li>
-        </ul>
+      <div css={[activeStyle(type === 'BUY' ? 1 : 2), menuHeader('div')]}>
+        <div onClick={changeType}>BUY</div>
+        <div onClick={changeType}>SELL</div>
       </div>
       <form className="card__body" css={[assets]} onSubmit={handleOrder}>
         <div>
@@ -129,7 +105,7 @@ const OrderForm = () => {
         <InputWrapper id="price" label="Price" customStyle={[orderFormInputWrapper]}>
           <input id="price" type="number" min={0} placeholder="0" value={order.price || ''} onChange={handleChange} />
         </InputWrapper>
-        <InputWrapper id="amount" label={`Amount to ${type.toLowerCase()}`} customStyle={[orderFormInputWrapper]}>
+        <InputWrapper id="amount" label={`Amount`} customStyle={[orderFormInputWrapper]}>
           <input id="amount" type="number" min={0} placeholder="0" value={order.amount || ''} onChange={handleChange} />
         </InputWrapper>
         <div style={{ paddingTop: '12px' }}>
