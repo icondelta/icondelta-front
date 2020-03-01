@@ -7,10 +7,6 @@ import { useTokenContext } from '../../contexts/TokenContext';
 
 const orderFormWrapper = css`
   border-top: 1px solid transparent;
-
-  & > div {
-    display: flex;
-  }
 `;
 
 const assets = css`
@@ -35,15 +31,17 @@ const activeStyle = active => css`
     color: #fafafa;
     ${active === 1
       ? css`
+          border-color: #e12343;
           background-color: #e12343;
         `
       : css`
+          border-color: #1763b6;
           background-color: #1763b6;
         `}
   }
 `;
 
-const orderButton = type => css`
+const orderButton = css`
   width: 100%;
   color: #fafafa;
   line-height: 1.5;
@@ -113,7 +111,7 @@ const OrderForm = () => {
             {order.total || 0} <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
           </span>
         </div>
-        <button type="submit" className={type === 'BUY' ? 'buy-btn' : 'sell-btn'} css={[orderButton(type)]}>
+        <button type="submit" className={type === 'BUY' ? 'buy-btn' : 'sell-btn'} css={[orderButton]}>
           {type}
         </button>
       </form>

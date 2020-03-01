@@ -3,9 +3,11 @@ import { css } from '@emotion/core';
 export const menuHeader = target =>
   target
     ? css`
+        display: flex;
         background: transparent;
 
         ${target} {
+          border-top: 1px solid #e4e5e8;
           user-select: none;
           flex: 1 1;
           cursor: pointer;
@@ -19,6 +21,7 @@ export const menuHeader = target =>
         }
       `
     : css`
+        border-top: 1px solid #e4e5e8;
         user-select: none;
         flex: 1 1;
         cursor: pointer;
@@ -41,6 +44,16 @@ export const tableHeader = css`
     align-items: center;
     justify-content: center;
   }
+`;
+
+export const headerSize = (...sizes) => css`
+  ${sizes.map(
+    (size, i) => css`
+      div:nth-of-type(${i + 1}) {
+        flex: ${size};
+      }
+    `
+  )}
 `;
 
 export const tableBody = css`

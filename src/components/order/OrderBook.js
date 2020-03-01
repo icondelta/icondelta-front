@@ -1,26 +1,20 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-
-import { useTokenContext } from '../../contexts/TokenContext';
-import OrderBookItem from './OrderBookItem';
 import media from '../../common/media';
-import { tableHeader } from '../../styles/common';
+import OrderBookItem from './OrderBookItem';
+import { useTokenContext } from '../../contexts/TokenContext';
+import { tableHeader, headerSize } from '../../styles/common';
 import { buyOrders, sellOrders } from '../../common/dummy';
 
 const orderWrapper = css`
+  margin: 16px 16px 0;
   ${media.up('sm')} {
-    margin: 16px 16px 0;
-    flex: 1.4 1;
+    flex: 1.4;
   }
   ${media.down('sm')} {
+    margin: 0;
     width: 100%;
-  }
-`;
-
-const headerSize = css`
-  div {
-    flex: 1 0;
   }
 `;
 
@@ -29,7 +23,7 @@ const OrderBook = () => {
 
   return (
     <div className="card" css={[orderWrapper]}>
-      <div css={[tableHeader, headerSize]}>
+      <div css={[tableHeader, headerSize(1, 1, 1)]}>
         <div>PRICE</div>
         <div>{token.symbol}</div>
         <div>ICX</div>

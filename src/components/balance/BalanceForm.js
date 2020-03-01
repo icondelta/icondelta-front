@@ -10,25 +10,29 @@ const balanceFormWrapper = css`
   border-top: none;
   margin-top: 16px;
   width: calc(72% - 16px);
-  background-color: transparent;
   ${media.up('lg')} {
     margin-left: 16px;
   }
   ${media.down('lg')} {
     width: 100%;
   }
+`;
 
-  & > div {
-    display: flex;
+const balanceFormBody = css`
+  display: flex;
+  ${media.down('sm')} {
+    flex-direction: column;
   }
 `;
 
 const inputWrapperStyle = css`
-  &:first-of-type {
-    margin-right: 8px;
-  }
-  &:last-of-type {
-    margin-left: 8px;
+  ${media.up('sm')} {
+    &:first-of-type {
+      margin-right: 8px;
+    }
+    &:last-of-type {
+      margin-left: 8px;
+    }
   }
   label {
     padding: 8px;
@@ -41,27 +45,26 @@ const inputWrapperStyle = css`
     ${media.up('xs')} {
       width: auto;
     }
-    flex: 2 1;
+    flex: 2;
   }
   button {
-    flex: 1 1;
+    flex: 1;
     color: #1aaaba;
     padding: 8px 12px;
-    margin: 0 0 0 8px;
+    margin-left: 8px;
     ${media.down('sm')} {
-      margin: 0 0 0 4px;
+      margin-left: 4px;
     }
   }
 `;
 
 const activeStyle = active => css`
   & div {
-    border-top: 1px solid #e4e5e8;
     &:first-of-type {
       border-right: 1px solid #e4e5e8;
     }
     &:last-of-type {
-      border-left: 1px solid transparent;
+      border-left: 1px solid #e4e5e8;
     }
   }
   & div:nth-of-type(${active}) {
@@ -100,7 +103,20 @@ const TokenBalanceForm = () => {
         <div onClick={changeType}>DEPOSIT</div>
         <div onClick={changeType}>WITHDRAW</div>
       </div>
-      <div className="card__body">
+      <div className="card__body" css={[balanceFormBody]}>
+        <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
+          <div>
+            <input
+              id="icxAmount"
+              type="number"
+              min={0}
+              value={inputs.icxAmount}
+              onChange={handleChange}
+              placeholder="0"
+            />
+            <button className="btn">{type}</button>
+          </div>
+        </InputWrapper>
         <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
           <div>
             <input
@@ -108,19 +124,6 @@ const TokenBalanceForm = () => {
               type="number"
               min={0}
               value={inputs.tokenAmount}
-              onChange={handleChange}
-              placeholder="0"
-            />
-            <button className="btn">{type}</button>
-          </div>
-        </InputWrapper>
-        <InputWrapper id="icxAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
-          <div>
-            <input
-              id="icxAmount"
-              type="number"
-              min={0}
-              value={inputs.icxAmount}
               onChange={handleChange}
               placeholder="0"
             />

@@ -8,14 +8,15 @@ import TokenList from '../components/token/TokenList';
 import TokenInfo from '../components/token/TokenInfo';
 import BalanceForm from '../components/balance/BalanceForm';
 import TradeHistory from '../components/trade/TradeHistory';
-import Order from '../components/order/Order';
 import OrderForm from '../components/order/OrderForm';
+import OrderBook from '../components/order/OrderBook';
+import History from '../components/history/History';
 
 const wrapper = css`
   display: inline-flex;
   width: calc(72% - 16px);
-  align-items: start;
   flex-wrap: wrap-reverse;
+  /* align-items: start; */
 
   ${media.up('lg')} {
     margin-left: 16px;
@@ -34,26 +35,15 @@ const wrapper = css`
       margin-top: 8px;
     }
 
-    &:first-of-type {
-      ${media.up('sm')} {
-        flex: 1 1;
-      }
-      ${media.down('sm')} {
-        width: 100%;
-      }
-    }
-    &:nth-of-type(2) {
-      ${media.up('sm')} {
-        margin: 16px 16px 0;
-        flex: 1.4 1;
-      }
-      ${media.down('sm')} {
-        width: 100%;
-      }
-    }
     &:last-of-type {
-      ${media.up('sm')} {
-        flex: 1 1;
+      display: inline-flex;
+      flex-direction: column;
+
+      ${media.up('md')} {
+        flex: 1;
+      }
+      ${media.down('md')} {
+        flex: 1.2;
       }
       ${media.down('sm')} {
         width: 100%;
@@ -70,8 +60,11 @@ const Trade = props => {
       <BalanceForm />
       <div css={[wrapper]}>
         <TradeHistory />
-        <Order />
-        <OrderForm />
+        <OrderBook />
+        <div>
+          <OrderForm />
+          <History />
+        </div>
       </div>
     </Layout>
   );
