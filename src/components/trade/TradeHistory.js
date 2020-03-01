@@ -3,24 +3,21 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 
 import TradeHistoryItem from './TradeHistoryItem';
+import { tableHeader } from '../../styles/common';
 import { tradeHistory } from '../../common/dummy';
+import media from '../../common/media';
 
-const tradeHistoryHeader = css`
-  padding: 8px 8px 0;
-
-  ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid #e0e0e0;
+const tradeWrapper = css`
+  ${media.up('sm')} {
+    flex: 1 1;
   }
-  li {
-    display: inline-flex;
-    padding: 8px 0;
-    align-items: center;
-    justify-content: center;
+  ${media.down('sm')} {
+    width: 100%;
+  }
+`;
 
+const itemSize = css`
+  div {
     &:first-of-type {
       flex: 1.6 0;
     }
@@ -35,13 +32,11 @@ const tradeHistoryHeader = css`
 
 const TradeHistory = () => {
   return (
-    <div className="card ">
-      <div css={[tradeHistoryHeader]}>
-        <ul>
-          <li>TIME</li>
-          <li>PRICE</li>
-          <li>AMOUNT</li>
-        </ul>
+    <div className="card" css={[tradeWrapper]}>
+      <div css={[tableHeader, itemSize]}>
+        <div>TIME</div>
+        <div>PRICE</div>
+        <div>AMOUNT</div>
       </div>
       <div className="inner_scroll">
         {tradeHistory.map(data => (
