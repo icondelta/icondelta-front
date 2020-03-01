@@ -47,7 +47,6 @@ const inputWrapperStyle = css`
     flex: 1 1;
     color: #1aaaba;
     padding: 8px 12px;
-    background-color: #e6f8fa;
     margin: 0 0 0 8px;
     ${media.down('sm')} {
       margin: 0 0 0 4px;
@@ -112,7 +111,7 @@ const TokenBalanceForm = () => {
               onChange={handleChange}
               placeholder="0"
             />
-            <button>{type}</button>
+            <button className="btn">{type}</button>
           </div>
         </InputWrapper>
         <InputWrapper id="icxAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
@@ -125,7 +124,7 @@ const TokenBalanceForm = () => {
               onChange={handleChange}
               placeholder="0"
             />
-            <button>{type}</button>
+            <button className="btn">{type}</button>
           </div>
         </InputWrapper>
       </div>

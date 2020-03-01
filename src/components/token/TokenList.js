@@ -11,7 +11,7 @@ import { useTokenListContext } from '../../contexts/TokenListContext';
 const tokenList = css`
   top: 8px;
   position: sticky;
-  max-height: 650px;
+  max-height: 750px;
   float: left;
 
   width: 28%;
@@ -26,7 +26,7 @@ const tokenList = css`
     max-height: 80%;
   }
   ${media.down('md')} {
-    width: 35%;
+    width: 40%;
     max-height: 75%;
   }
   ${media.down('sm')} {
@@ -59,7 +59,6 @@ const overlay = visible => css`
   top: 0;
   left: 0;
   z-index: 99;
-  cursor: pointer;
   position: absolute;
 
   ${media.down('lg')} {
@@ -89,6 +88,7 @@ const TokenList = () => {
       return tokens;
     }
     return tokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+    // eslint-disable-next-line
   }, [searchText]);
 
   const listVisible = useMemo(

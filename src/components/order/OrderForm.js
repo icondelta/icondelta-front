@@ -50,7 +50,6 @@ const orderButton = type => css`
   margin-top: 1rem;
   font-size: 1.2rem;
   padding: 8px 16px;
-  background-color: ${type === 'BUY' ? '#e12343' : '#1763b6'};
 `;
 
 const OrderForm = () => {
@@ -114,7 +113,7 @@ const OrderForm = () => {
             {order.total || 0} <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
           </span>
         </div>
-        <button type="submit" css={[orderButton(type)]}>
+        <button type="submit" className={type === 'BUY' ? 'buy-btn' : 'sell-btn'} css={[orderButton(type)]}>
           {type}
         </button>
       </form>

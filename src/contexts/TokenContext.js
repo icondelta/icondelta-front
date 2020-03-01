@@ -19,6 +19,7 @@ export default ({ children }) => {
     return () => {
       console.log('unmount TokenContext!');
     };
+    // eslint-disable-next-line
   }, [symbol]);
 
   return <TokenContext.Provider value={{ token, setToken }}>{children}</TokenContext.Provider>;
