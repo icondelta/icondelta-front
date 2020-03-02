@@ -1,3 +1,58 @@
+export const history = {
+  order: [
+    {
+      type: 'buy',
+      user: 'hx~',
+      token: 'cx~',
+      price: 0,
+      amountGet: 10,
+      amountGive: 100,
+      filled: 0,
+      nonce: 0,
+      expireBlock: 10,
+      signature: '0x~0',
+      orderedAt: new Date(),
+    },
+    {
+      type: 'buy',
+      user: 'hx~',
+      token: 'cx~',
+      price: 0,
+      amountGet: 10,
+      amountGive: 100,
+      filled: 0,
+      nonce: 0,
+      expireBlock: 10,
+      signature: '0x~1',
+      orderedAt: new Date(),
+    },
+  ],
+  trade: [
+    {
+      type: 'buy',
+      token: 'cx~',
+      amount: 125,
+      price: 0.0000012,
+      total: 0.00015,
+      buyer: '0x~',
+      seller: '0x~',
+      txHash: '0xa8a66511b449b1692b32ef6029a441c45bb65d677932fd25f9b7770b46dc5f2d',
+      tradedAt: new Date(),
+    },
+    {
+      type: 'sell',
+      token: 'cx~',
+      amount: 125,
+      price: 0.0000015,
+      total: 0.00015,
+      buyer: '0x~',
+      seller: '0x~',
+      txHash: '0xa8a66511b449b1692b32ef6029a441c45bb65d677932fd25f9b7770b46dc5f2e',
+      tradedAt: new Date(),
+    },
+  ],
+};
+
 export const buyOrders = [
   {
     type: 'buy',

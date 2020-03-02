@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { menuHeader } from '../../styles/common';
 import media from '../../common/media';
+import { menuHeader } from '../../styles/common';
+import HistoryOrderItem from './HistoryOrderItem';
+import HistoryTradeItem from './HistoryTradeItem';
+import { history } from '../../common/dummy';
+import HistoryHeader from './HistoryHeader';
 
 const historyWrapper = css`
-  flex: 1;
+  height: 20rem;
+  margin: 16px 0 0 calc(25% + 16px);
   border-top: none;
+  width: calc(75% - 16px);
   background-color: transparent;
-
-  ${media.up('sm')} {
-    margin-top: 16px;
+  ${media.down('lg')} {
+    width: 100%;
+    margin: 16px 0 0;
   }
-
   ${media.down('sm')} {
-    margin-top: 8px;
+    margin: 8px 0 0;
   }
 `;
 
@@ -47,6 +52,12 @@ const History = () => {
       <div css={[menuHeader('div'), activeStyle(type === 'order' ? 1 : 2)]} onClick={changeType}>
         <div className="order">Active Orders</div>
         <div className="trade">Trade History</div>
+      </div>
+      <HistoryHeader type={type} />
+      <div className="inner-scroll">
+        {type === 'order'
+          ? history.order.map(order => <HistoryOrderItem key={order.signature} data={order} />)
+          : history.trade.map(trade => <HistoryTradeItem key={trade.txHash} data={trade} />)}
       </div>
     </div>
   );
