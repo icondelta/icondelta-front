@@ -34,6 +34,8 @@ const header = css`
     }
   }
   .title {
+    cursor: default;
+    user-select: none;
     margin-right: 1em;
     text-transform: uppercase;
   }
@@ -67,7 +69,7 @@ const header = css`
       font-weight: bold;
       align-items: center;
       display: inline-flex;
-      
+
       i {
         display: inline-block;
         font-size: 1rem;
@@ -77,7 +79,7 @@ const header = css`
       }
     }
   }
-  
+
   ${media.down('md')} {
     padding: 0;
   }

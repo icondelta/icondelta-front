@@ -1,28 +1,41 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-
+import media from '../../common/media';
 import OrderBookItem from './OrderBookItem';
+import { useTokenContext } from '../../contexts/TokenContext';
+import { tableHeader, headerSize } from '../../styles/common';
 import { buyOrders, sellOrders } from '../../common/dummy';
 
-const orderBookWrapper = css`
-  padding: 0 8px;
-
-  &:first-of-type {
-    padding-top: 8px;
+const orderWrapper = css`
+  margin: 16px 16px 0;
+  ${media.up('sm')} {
+    flex: 1.4;
   }
-  &:last-of-type {
-    padding-bottom: 8px;
+  ${media.down('sm')} {
+    margin: 0;
+    width: 100%;
   }
 `;
 
-const OrderBook = ({ type }) => {
-  const orders = type === 'buy' ? buyOrders : sellOrders;
+const OrderBook = () => {
+  const { token } = useTokenContext();
+
   return (
-    <div css={[orderBookWrapper]}>
-      {orders.map(order => (
-        <OrderBookItem key={order.signature} data={order} />
-      ))}
+    <div className="card" css={[orderWrapper]}>
+      <div css={[tableHeader, headerSize(1, 1, 1)]}>
+        <div>PRICE</div>
+        <div>{token.symbol}</div>
+        <div>ICX</div>
+      </div>
+      <div className="inner_scroll">
+        {buyOrders.map(order => (
+          <OrderBookItem key={order.signature} data={order} />
+        ))}
+        {sellOrders.map(order => (
+          <OrderBookItem key={order.signature} data={order} />
+        ))}
+      </div>
     </div>
   );
 };

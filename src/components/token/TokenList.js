@@ -11,10 +11,10 @@ import { useTokenListContext } from '../../contexts/TokenListContext';
 const tokenList = css`
   top: 8px;
   position: sticky;
-  max-height: 650px;
+  max-height: 750px;
   float: left;
 
-  width: 28%;
+  width: 25%;
   height: 650px;
   ${media.down('lg')} {
     top: 54px;
@@ -26,7 +26,7 @@ const tokenList = css`
     max-height: 80%;
   }
   ${media.down('md')} {
-    width: 35%;
+    width: 40%;
     max-height: 75%;
   }
   ${media.down('sm')} {
@@ -41,25 +41,24 @@ const tokenList = css`
     height: 100%;
     padding: 8px 0;
     overflow: hidden;
-
-    p {
-      display: flex;
-      margin: 0;
-      padding: 16px;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
   }
+`;
+
+const noResult = css`
+  display: flex;
+  margin: 0;
+  padding: 16px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const overlay = visible => css`
   top: 0;
   left: 0;
   z-index: 99;
-  cursor: pointer;
   position: absolute;
 
   ${media.down('lg')} {
@@ -89,6 +88,7 @@ const TokenList = () => {
       return tokens;
     }
     return tokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+    // eslint-disable-next-line
   }, [searchText]);
 
   const listVisible = useMemo(
@@ -111,7 +111,7 @@ const TokenList = () => {
             {tokensByText.length ? (
               tokensByText.map(token => <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />)
             ) : (
-              <p>No results found.</p>
+              <p css={[noResult]}>No results found.</p>
             )}
           </div>
         </div>

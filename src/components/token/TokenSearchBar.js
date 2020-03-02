@@ -5,27 +5,25 @@ import InputWrapper from '../common/InputWrapper';
 
 const searchBox = css`
   border-bottom: 1px solid #e0e0e0;
-  padding: calc(1.5rem - 8px) 0 1.5rem;
+  padding: 0 0 24px;
+  margin-top: 16px;
   input {
-    padding: 8px 24px 8px 12px !important; // ...better way?
+    padding: 8px 28px 8px 12px;
   }
-`;
-
-const iconStyle = css`
-  cursor: pointer;
-  right: 4px;
-  bottom: 1.75rem;
-  color: #414141;
-  position: absolute;
+  i {
+    cursor: default;
+    top: calc((100% - 48px) / 2);
+    right: 4px;
+    color: #414141;
+    position: absolute;
+  }
 `;
 
 const TokenSearchBar = ({ text, handleTextChange }) => {
   return (
     <InputWrapper customStyle={searchBox}>
       <input type="text" value={text} onChange={handleTextChange} placeholder="Search Token" />
-      <i className="material-icons" css={iconStyle}>
-        search
-      </i>
+      <i className="material-icons">search</i>
     </InputWrapper>
   );
 };
