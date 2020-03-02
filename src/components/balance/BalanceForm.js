@@ -9,7 +9,7 @@ import { menuHeader } from '../../styles/common';
 const balanceFormWrapper = css`
   border-top: none;
   margin-top: 16px;
-  width: calc(72% - 16px);
+  width: calc(75% - 16px);
   ${media.up('lg')} {
     margin-left: 16px;
   }
@@ -48,7 +48,6 @@ const inputWrapperStyle = css`
     flex: 2;
   }
   button {
-    flex: 1;
     color: #1aaaba;
     padding: 8px 12px;
     margin-left: 8px;

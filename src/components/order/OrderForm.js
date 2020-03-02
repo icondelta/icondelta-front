@@ -24,6 +24,9 @@ const assets = css`
 const orderFormInputWrapper = css`
   display: flex;
   flex-direction: column;
+  input {
+    font-size: 1.3rem;
+  }
 `;
 
 const activeStyle = active => css`

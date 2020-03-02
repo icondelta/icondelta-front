@@ -11,12 +11,12 @@ import TradeHistory from '../components/trade/TradeHistory';
 import OrderForm from '../components/order/OrderForm';
 import OrderBook from '../components/order/OrderBook';
 import History from '../components/history/History';
+import TrollBox from '../components/trollbox/TrollBox';
 
 const wrapper = css`
   display: inline-flex;
-  width: calc(72% - 16px);
+  width: calc(75% - 16px);
   flex-wrap: wrap-reverse;
-  /* align-items: start; */
 
   ${media.up('lg')} {
     margin-left: 16px;
@@ -63,9 +63,10 @@ const Trade = props => {
         <OrderBook />
         <div>
           <OrderForm />
-          <History />
+          <TrollBox />
         </div>
       </div>
+      <History />
     </Layout>
   );
 };

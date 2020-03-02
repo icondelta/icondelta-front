@@ -48,13 +48,14 @@ const trollingInput = css`
 const Trollbox = () => {
   const [say, setSay] = useState('');
 
-  const handleChange = e => {
-    console.log(e);
-    setSay(e.target.value);
+  const handleChange = ({ target }) => {
+    setSay(target.value);
   };
 
-  const handleSearch = e => {
-    console.log('?');
+  const handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      console.log('enter!');
+    }
   };
 
   return (
@@ -66,12 +67,12 @@ const Trollbox = () => {
       <div className="card__footer">
         <InputWrapper id="trolling" customStyle={[trollingInput]}>
           <input
-            type="search"
+            type="text"
             id="trolling"
             name="trolling"
             value={say}
             onChange={handleChange}
-            // onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
           />
           <button className="btn">send</button>
         </InputWrapper>
