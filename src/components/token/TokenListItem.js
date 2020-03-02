@@ -3,6 +3,8 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { Link, useParams } from 'react-router-dom';
 
+import { ReactComponent as Star } from '../../styles/star.svg';
+
 const tokenListItem = css`
   color: inherit;
   display: flex;
@@ -15,47 +17,76 @@ const tokenListItem = css`
     border: 2px solid #1aaaba;
   }
 
-  ul {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    justify-content: space-between;
-  }
-
-  li {
-    width: 100%;
+  & > div {
+    flex: 1;
     display: flex;
+    align-items: center;
   }
 
-  span {
-    cursor: pointer;
-    padding: 14px 8px;
-    font-size: 1.2em;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  &:hover {
+    & > div p span {
+      transform: translateX(4px);
+    }
+    & svg {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
-  span:nth-of-type(1) {
-    width: 25%;
-    color: #414141;
-    font-weight: 700;
-  }
+  & div > span {
+    padding: 16px 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: start;
 
-  span:nth-of-type(2) {
-    width: 55%;
-    color: #676767;
-  }
-
-  span:nth-of-type(3) {
-    width: 30%;
+    &:nth-of-type(1) {
+      flex: none;
+      width: 84px;
+      display: flex;
+    }
+    &:first-of-type {
+      flex: 1 0 auto;
+    }
+    &:last-of-type {
+      flex: 1 1 auto;
+      justify-content: flex-end;
+    }
   }
 `;
 
-const TokenListItem = ({ token, onClick }) => {
+const withSVG = css`
+  flex: none;
+  width: 84px;
+  margin: 0;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+
+  svg {
+    opacity: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  span {
+    font-weight: bold;
+  }
+  svg,
+  span {
+    transform: translateX(-16px);
+    transition: all ease 0.25s;
+  }
+`;
+
+const TokenListItem = ({ token, favorite, onClick }) => {
   const { symbol } = useParams();
+
+  const handleClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    // TODO: Save favorite token to localstorage
+  };
+
   return (
     <Link
       to={`/${token.symbol}`}
@@ -63,13 +94,14 @@ const TokenListItem = ({ token, onClick }) => {
       css={[tokenListItem]}
       onClick={onClick}
     >
-      <ul>
-        <li>
+      <div>
+        <p css={[withSVG]}>
+          <Star onClick={handleClick} fill={favorite ? '#f8c917' : 'transparent'} />
           <span>{token.symbol}</span>
-          <span>{token.name}</span>
-          <span>{token.lastPrice || '-'}</span>
-        </li>
-      </ul>
+        </p>
+        <span>{token.name}</span>
+        <span>{token.lastPrice || '-'}</span>
+      </div>
     </Link>
   );
 };

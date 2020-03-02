@@ -14,7 +14,7 @@ const tokenList = css`
   max-height: 750px;
   float: left;
 
-  width: 28%;
+  width: 25%;
   height: 650px;
   ${media.down('lg')} {
     top: 54px;
@@ -41,18 +41,18 @@ const tokenList = css`
     height: 100%;
     padding: 8px 0;
     overflow: hidden;
-
-    p {
-      display: flex;
-      margin: 0;
-      padding: 16px;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
   }
+`;
+
+const noResult = css`
+  display: flex;
+  margin: 0;
+  padding: 16px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const overlay = visible => css`
@@ -111,7 +111,7 @@ const TokenList = () => {
             {tokensByText.length ? (
               tokensByText.map(token => <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />)
             ) : (
-              <p>No results found.</p>
+              <p css={[noResult]}>No results found.</p>
             )}
           </div>
         </div>
