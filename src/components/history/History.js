@@ -9,7 +9,7 @@ import { history } from '../../common/dummy';
 import HistoryHeader from './HistoryHeader';
 
 const historyWrapper = css`
-  height: 20rem;
+  height: 15rem;
   margin: 16px 0 0 calc(25% + 16px);
   border-top: none;
   width: calc(75% - 16px);
@@ -54,7 +54,7 @@ const History = () => {
         <div className="trade">Trade History</div>
       </div>
       <HistoryHeader type={type} />
-      <div className="inner-scroll">
+      <div className="inner_scroll">
         {type === 'order'
           ? history.order.map(order => <HistoryOrderItem key={order.signature} data={order} />)
           : history.trade.map(trade => <HistoryTradeItem key={trade.txHash} data={trade} />)}

@@ -7,6 +7,7 @@ export const menuHeader = target =>
         background: transparent;
 
         ${target} {
+          text-transform: uppercase;
           border-top: 1px solid #e4e5e8;
           user-select: none;
           flex: 1 1;
@@ -21,6 +22,7 @@ export const menuHeader = target =>
         }
       `
     : css`
+        text-transform: uppercase;
         border-top: 1px solid #e4e5e8;
         user-select: none;
         flex: 1 1;
