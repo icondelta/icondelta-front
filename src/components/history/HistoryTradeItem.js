@@ -5,7 +5,7 @@ import { jsx, css } from '@emotion/core';
 
 const tradeItemWrapper = type => css`
   display: flex;
-  line-height: 2.5;
+  line-height: 2;
   color: ${type === 'buy' ? '#e12343' : '#1763b6'};
 
   div {

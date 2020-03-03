@@ -60,10 +60,8 @@ const Trollbox = () => {
 
   return (
     <div className="card" css={[trollboxWrapper]}>
-      <div className="card__title">Trollbox</div>
-      <div className="card__body">
-        <div className="inner_scroll"></div>
-      </div>
+      <div className="card__title">TROLLBOX</div>
+      <div className="inner_scroll"></div>
       <div className="card__footer">
         <InputWrapper id="trolling" customStyle={[trollingInput]}>
           <input
