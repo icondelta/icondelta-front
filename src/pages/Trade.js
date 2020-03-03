@@ -12,6 +12,7 @@ import OrderForm from '../components/order/OrderForm';
 import OrderBook from '../components/order/OrderBook';
 import History from '../components/history/History';
 import TrollBox from '../components/trollbox/TrollBox';
+import BalanceInfo from '../components/balance/BalanceInfo';
 
 const wrapper = css`
   display: inline-flex;
@@ -52,12 +53,32 @@ const wrapper = css`
   }
 `;
 
+const balanceWrapper = css`
+  display: inline-flex;
+  margin-top: 16px;
+  width: calc(75% - 16px);
+
+  ${media.up('lg')} {
+    margin-left: 16px;
+  }
+  ${media.down('lg')} {
+    width: 100%;
+  }
+  ${media.down('sm')} {
+    margin-top: 8px;
+    flex-direction: column;
+  }
+`;
+
 const Trade = props => {
   return (
     <Layout {...props}>
       <TokenList />
       <TokenInfo />
-      <BalanceForm />
+      <div css={[balanceWrapper]}>
+        <BalanceForm />
+        <BalanceInfo />
+      </div>
       <div css={[wrapper]}>
         <TradeHistory />
         <OrderBook />

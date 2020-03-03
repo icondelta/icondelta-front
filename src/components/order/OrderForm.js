@@ -111,7 +111,7 @@ const OrderForm = () => {
         <div style={{ paddingTop: '12px' }}>
           <span>Total:</span>
           <span>
-            {order.total || 0} <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
+            {order.total || 0} <span>{type === 'BUY' ? token.symbol : 'ICX'}</span>
           </span>
         </div>
         <button type="submit" className={type === 'BUY' ? 'buy-btn' : 'sell-btn'} css={[orderButton]}>

@@ -8,18 +8,15 @@ import { menuHeader } from '../../styles/common';
 
 const balanceFormWrapper = css`
   border-top: none;
-  margin-top: 16px;
-  width: calc(75% - 16px);
-  ${media.up('lg')} {
-    margin-left: 16px;
-  }
-  ${media.down('lg')} {
-    width: 100%;
+  flex: 2;
+  ${media.down('sm')} {
+    flex: 1;
   }
 `;
 
 const balanceFormBody = css`
   display: flex;
+  flex: 1;
   ${media.down('sm')} {
     flex-direction: column;
   }
@@ -35,8 +32,11 @@ const inputWrapperStyle = css`
     }
   }
   label {
-    padding: 8px;
     display: inline-flex;
+    padding: 8px;
+    ${media.down('sm')} {
+      padding: 4px;
+    }
   }
   div {
     display: flex;
