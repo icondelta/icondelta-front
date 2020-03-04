@@ -1,13 +1,28 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { useContext } from 'react';
 import { TOKENS } from '../common/consts';
+import { getFavorites } from '../common/favorites';
 
 const TokenListContext = createContext();
 
 export const useTokenListContext = () => useContext(TokenListContext);
 
 export default ({ children }) => {
-  const [tokens, setTokens] = useState(TOKENS);
+  const [tokens, _] = useState(TOKENS);
+  const [favorites, setFavorites] = useState(getFavorites());
 
-  return <TokenListContext.Provider value={{ tokens, setTokens }}>{children}</TokenListContext.Provider>;
+  const getTokens = useMemo(
+    () =>
+      tokens.map(token => {
+        if (favorites[token.symbol]) {
+          token.favorited = true;
+        } else {
+          token.favorited = false;
+        }
+        return token;
+      }),
+    [favorites]
+  );
+
+  return <TokenListContext.Provider value={{ setFavorites, getTokens }}>{children}</TokenListContext.Provider>;
 };
