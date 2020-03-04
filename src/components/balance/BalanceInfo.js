@@ -12,6 +12,7 @@ const balanceInfoWrapper = css`
   }
 
   .card__title {
+    color: #1aaaba;
     padding: 8px 16px;
     border-bottom: 1px solid #e0e0e0;
   }
@@ -28,9 +29,7 @@ const balanceInfoBody = css`
     flex: 1;
     display: flex;
     span {
-      &:not(:first-of-type) {
-        justify-content: flex-end;
-      }
+      justify-content: flex-end;
     }
     &:first-of-type {
       span {
@@ -39,10 +38,13 @@ const balanceInfoBody = css`
     }
   }
   span {
-    padding: 4px 0;
+    flex: 2.5;
     display: inline-flex;
     align-items: center;
-    flex: 1.5;
+    padding: 4px 8px;
+    ${media.down('lg')} {
+      padding: 4px 0;
+    }
     &:first-of-type {
       flex: 1;
     }

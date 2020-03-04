@@ -48,6 +48,7 @@ const inputWrapperStyle = css`
     flex: 2;
   }
   button {
+    flex: 1;
     color: #1aaaba;
     padding: 8px 12px;
     margin-left: 8px;

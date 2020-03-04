@@ -17,7 +17,7 @@ const trollboxWrapper = css`
   }
 
   .card__title {
-    padding-bottom: 8px;
+    padding: 8px 16px;
     border-bottom: 1px solid #e0e0e0;
   }
   .card__body {
