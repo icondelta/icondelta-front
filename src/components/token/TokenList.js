@@ -76,7 +76,7 @@ const overlay = visible => css`
 
 const TokenList = () => {
   const [searchText, setSearchText] = useState('');
-  const { tokens } = useTokenListContext();
+  const { getTokens } = useTokenListContext();
   const { menuVisible, toggleMenuVisible } = useUiContext();
 
   const handleTextChange = useCallback(e => {
@@ -85,11 +85,10 @@ const TokenList = () => {
 
   const tokensByText = useMemo(() => {
     if (!searchText || !searchText.trim()) {
-      return tokens;
+      return getTokens;
     }
-    return tokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
-    // eslint-disable-next-line
-  }, [searchText]);
+    return getTokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+  }, [searchText, getTokens]);
 
   const listVisible = useMemo(
     () => css`
