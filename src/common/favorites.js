@@ -15,3 +15,15 @@ export const removeFavorites = symbol => {
   delete favorites[symbol];
   storage.set('favorites', favorites);
 };
+
+export const toggleFavorite = (token, setFavorites) => e => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (token.favorited) {
+    removeFavorites(token.symbol);
+  } else {
+    addFavorites(token.symbol);
+  }
+
+  setFavorites(_ => getFavorites());
+};
