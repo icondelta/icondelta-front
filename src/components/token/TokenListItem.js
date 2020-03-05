@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import { Link, useParams } from 'react-router-dom';
 
 import { toggleFavorite } from '../../common/favorites';
-import { useTokenListContext } from '../../contexts/TokenListContext';
+import { useTokenContext } from '../../contexts/TokenContext';
 import StarIcon from '../common/StarIcon';
 
 const tokenListItem = css`
@@ -81,7 +81,7 @@ const withSVG = css`
 
 const TokenListItem = ({ token, onClick }) => {
   const { symbol } = useParams();
-  const { setFavorites } = useTokenListContext();
+  const { addFavorites } = useTokenContext();
 
   return (
     <Link
@@ -93,7 +93,7 @@ const TokenListItem = ({ token, onClick }) => {
     >
       <div>
         <p css={[withSVG]}>
-          <StarIcon onClick={toggleFavorite(token, setFavorites)} fill={token.favorited} />
+          <StarIcon onClick={toggleFavorite(token, addFavorites)} fill={token.favorited} />
           <span>{token.symbol}</span>
         </p>
         <span>{token.name}</span>

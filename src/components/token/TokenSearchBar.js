@@ -4,9 +4,8 @@ import { jsx, css } from '@emotion/core';
 import InputWrapper from '../common/InputWrapper';
 
 const searchBox = css`
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0 0 24px;
   margin-top: 16px;
+  padding: 0 0 24px;
   input {
     padding: 8px 28px 8px 12px;
   }

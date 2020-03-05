@@ -5,7 +5,6 @@ import media from '../../common/media';
 import StarIcon from '../common/StarIcon';
 import { toggleFavorite } from '../../common/favorites';
 import { useTokenContext } from '../../contexts/TokenContext';
-import { useTokenListContext } from '../../contexts/TokenListContext';
 
 const tokenInfoWrapper = css`
   width: calc(75% - 16px);
@@ -37,19 +36,20 @@ const tokenPrice = css`
 
 const tokenInfoFooter = css`
   span {
-    display: inline-flex;
     padding: 4px;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
   }
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    cursor: pointer;
+    transition: fill ease 0.25s;
   }
 `;
 
 const TokenInfo = () => {
-  const { token } = useTokenContext();
-  const { setFavorites } = useTokenListContext();
+  const { token, addFavorites } = useTokenContext();
 
   return (
     <div className="card" css={[tokenInfoWrapper]}>
@@ -63,7 +63,7 @@ const TokenInfo = () => {
         <p css={[tokenPrice]}>{token.lastPrice || '-'}</p>
       </div>
       <div className="card__footer" css={[tokenInfoFooter]}>
-        <span onClick={toggleFavorite(token, setFavorites)}>
+        <span onClick={toggleFavorite(token, addFavorites)}>
           <StarIcon fill={token.favorited} />
         </span>
       </div>
