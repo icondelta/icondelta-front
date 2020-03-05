@@ -1,9 +1,10 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import media from '../common/media';
 import { useTokenContext } from '../contexts/TokenContext';
 import { useUiContext } from '../contexts/UiContext';
-import media from '../common/media';
+import { ReactComponent as Help } from '../styles/help-circle.svg';
 
 const header = css`
   height: 60px;
@@ -16,6 +17,11 @@ const header = css`
     margin: 0 auto;
     padding: 0 16px;
     max-width: 1440px;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+    }
   }
   span {
     color: #1aaaba;
@@ -23,6 +29,7 @@ const header = css`
     font-weight: 700;
     font-size: 1.5rem;
     margin-right: 1rem;
+    margin-bottom: auto;
     align-items: center;
     display: inline-flex;
     text-decoration: none;
@@ -91,6 +98,27 @@ const menuArrow = visible => css`
   }
 `;
 
+const rightMenu = css`
+  a {
+    outline: none;
+    font-weight: bold;
+    color: #9e9e9e;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    ${media.down('sm')} {
+      font-size: 0;
+    }
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+    margin: 0 4px;
+    ${media.down('sm')} {
+    }
+  }
+`;
+
 const Header = () => {
   const { menuVisible, toggleMenuVisible } = useUiContext();
   const { token } = useTokenContext();
@@ -103,12 +131,22 @@ const Header = () => {
             <i className="material-icons icon">autorenew</i>
             icondelta
           </span>
+          <div className="subtitle" onClick={toggleMenuVisible}>
+            <p css={[menuArrow(menuVisible)]}>
+              {`${token?.symbol} ${token?.name}`}
+              <i className="material-icons">keyboard_arrow_down</i>
+            </p>
+          </div>
         </div>
-        <div className="subtitle" onClick={toggleMenuVisible}>
-          <p css={[menuArrow(menuVisible)]}>
-            {`${token?.symbol || ''} ${token?.name || ''}`}
-            <i className="material-icons">keyboard_arrow_down</i>
-          </p>
+        <div css={[rightMenu]}>
+          <a
+            href="https://www.notion.so/How-to-Guide-5bc85e598dba4cb599b365d0b95f82d4"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            How to use
+            <Help />
+          </a>
         </div>
       </nav>
     </header>
