@@ -5,9 +5,8 @@ import { jsx, css } from '@emotion/core';
 import Header from './Header';
 import Footer from './Footer';
 import media from '../common/media';
-import TokenContextProvider from '../contexts/TokenContext';
-import TokenListContextProvider from '../contexts/TokenListContext';
 import UiContextProvider from '../contexts/UiContext';
+import TokenContextProvider from '../contexts/TokenContext';
 
 const container = css`
   margin: 0 auto;
@@ -23,15 +22,13 @@ const container = css`
 const Layout = ({ children }) => {
   return (
     <>
-      <TokenListContextProvider>
-        <TokenContextProvider>
-          <UiContextProvider>
-            <Header />
-            <main css={[container]}>{children}</main>
-          </UiContextProvider>
-          <Footer />
-        </TokenContextProvider>
-      </TokenListContextProvider>
+      <TokenContextProvider>
+        <UiContextProvider>
+          <Header />
+          <main css={[container]}>{children}</main>
+        </UiContextProvider>
+        <Footer />
+      </TokenContextProvider>
     </>
   );
 };

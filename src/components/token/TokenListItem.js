@@ -3,9 +3,9 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { Link, useParams } from 'react-router-dom';
 
-import { addFavorites, removeFavorites, getFavorites } from '../../common/favorites';
-import { ReactComponent as Star } from '../../styles/star.svg';
-import { useTokenListContext } from '../../contexts/TokenListContext';
+import { toggleFavorite } from '../../common/favorites';
+import { useTokenContext } from '../../contexts/TokenContext';
+import StarIcon from '../common/StarIcon';
 
 const tokenListItem = css`
   color: inherit;
@@ -80,32 +80,20 @@ const withSVG = css`
 `;
 
 const TokenListItem = ({ token, onClick }) => {
-  const { setFavorites } = useTokenListContext();
   const { symbol } = useParams();
+  const { addFavorites } = useTokenContext();
 
-  const handleClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (token.favorited) {
-      removeFavorites(token.symbol);
-    } else {
-      addFavorites(token.symbol);
-    }
-
-    setFavorites(_ => getFavorites());
-  };
-
-  console.log(token.symbol, token.favorited);
   return (
     <Link
       to={`/${token.symbol}`}
       className={symbol === token.symbol ? 'active' : ''}
       css={[tokenListItem]}
       onClick={onClick}
+      replace={symbol === token.symbol ? true : false}
     >
       <div>
         <p css={[withSVG]}>
-          <Star onClick={handleClick} fill={token.favorited ? '#f8c917' : 'transparent'} />
+          <StarIcon onClick={toggleFavorite(token, addFavorites)} fill={token.favorited} />
           <span>{token.symbol}</span>
         </p>
         <span>{token.name}</span>

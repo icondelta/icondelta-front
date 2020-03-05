@@ -2,6 +2,8 @@ import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import media from '../../common/media';
+import StarIcon from '../common/StarIcon';
+import { toggleFavorite } from '../../common/favorites';
 import { useTokenContext } from '../../contexts/TokenContext';
 
 const tokenInfoWrapper = css`
@@ -32,8 +34,22 @@ const tokenPrice = css`
   font-size: 2rem;
 `;
 
+const tokenInfoFooter = css`
+  span {
+    padding: 4px;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+  }
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: fill ease 0.25s;
+  }
+`;
+
 const TokenInfo = () => {
-  const { token } = useTokenContext();
+  const { token, addFavorites } = useTokenContext();
 
   return (
     <div className="card" css={[tokenInfoWrapper]}>
@@ -46,7 +62,11 @@ const TokenInfo = () => {
       <div className="card__body">
         <p css={[tokenPrice]}>{token.lastPrice || '-'}</p>
       </div>
-      {/* TODO: Add favorite button */}
+      <div className="card__footer" css={[tokenInfoFooter]}>
+        <span onClick={toggleFavorite(token, addFavorites)}>
+          <StarIcon fill={token.favorited} />
+        </span>
+      </div>
     </div>
   );
 };

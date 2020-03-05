@@ -6,16 +6,17 @@ import media from '../../common/media';
 import TokenListItem from './TokenListItem';
 import TokenSearchBar from './TokenSearchBar';
 import { useUiContext } from '../../contexts/UiContext';
-import { useTokenListContext } from '../../contexts/TokenListContext';
+import { useTokenContext } from '../../contexts/TokenContext';
+import StarIcon from '../common/StarIcon';
 
-const tokenList = css`
+const tokenListWrapper = css`
   top: 8px;
-  position: sticky;
-  max-height: 750px;
-  float: left;
-
   width: 25%;
   height: 650px;
+  float: left;
+  position: sticky;
+  max-height: 750px;
+
   ${media.down('lg')} {
     top: 54px;
     min-width: 300px;
@@ -34,6 +35,13 @@ const tokenList = css`
     margin: 0 4px;
     height: 100%;
     width: calc(100% - 8px);
+  }
+
+  .card__title {
+    display: flex;
+    margin: 0 16px;
+    padding: 16px 0 0;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .card__body {
@@ -74,41 +82,71 @@ const overlay = visible => css`
   }
 `;
 
+const onlyFavoriteWrapper = css`
+  display: inline-flex;
+  margin: 16px 8px 0 0;
+  padding: 0 0 24px;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+    transition: fill ease 0.25s;
+  }
+`;
+
+const listVisible = visible => css`
+  ${media.down('lg')} {
+    display: ${visible ? 'flex' : 'none'};
+  }
+`;
+
 const TokenList = () => {
+  const [onlyFavorite, setOnlyFavorite] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const { getTokens } = useTokenListContext();
+  const { favorites, getTokens, getFavoritedTokens } = useTokenContext();
   const { menuVisible, toggleMenuVisible } = useUiContext();
 
   const handleTextChange = useCallback(e => {
     setSearchText(e.target.value);
   }, []);
 
-  const tokensByText = useMemo(() => {
-    if (!searchText || !searchText.trim()) {
+  const toggleOnlyFavorite = () => {
+    setOnlyFavorite(prev => !prev);
+  };
+
+  const tokensByCondition = useMemo(() => {
+    if (onlyFavorite) {
+      if (!searchText) {
+        return getFavoritedTokens;
+      } else {
+        return getFavoritedTokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+      }
+    }
+
+    if (!searchText) {
       return getTokens;
     }
     return getTokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
-  }, [searchText, getTokens]);
-
-  const listVisible = useMemo(
-    () => css`
-      ${media.down('lg')} {
-        display: ${menuVisible ? 'flex' : 'none'};
-      }
-    `,
-    [menuVisible]
-  );
+  }, [searchText, favorites, onlyFavorite]);
 
   return (
     <>
-      <div className="card" css={[tokenList, listVisible]}>
+      <div className="card" css={[tokenListWrapper, listVisible(menuVisible)]}>
         <div className="card__title">
+          <span css={[onlyFavoriteWrapper]}>
+            <StarIcon fill={onlyFavorite} onClick={toggleOnlyFavorite} />
+          </span>
           <TokenSearchBar text={searchText} handleTextChange={handleTextChange} />
         </div>
         <div className="card__body">
           <div className="inner_scroll">
-            {tokensByText.length ? (
-              tokensByText.map(token => <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />)
+            {tokensByCondition.length ? (
+              tokensByCondition.map(token => (
+                <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />
+              ))
             ) : (
               <p css={[noResult]}>No results found.</p>
             )}
