@@ -1,7 +1,7 @@
 import storage from './storage';
 
 export const getFavorites = () => {
-  return JSON.parse(storage.get('favorites'));
+  return storage.get('favorites') || {};
 };
 
 export const setFavorites = symbol => {
