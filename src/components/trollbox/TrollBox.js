@@ -20,9 +20,13 @@ const trollboxWrapper = css`
     padding: 8px 16px;
     border-bottom: 1px solid #e0e0e0;
   }
-  .card__body {
-    flex: 1;
-    padding-top: 0;
+  .inner_scroll {
+    padding-bottom: 8px;
+    ${media.down('sm')} {
+      padding-bottom: 4px;
+      min-height: 120px;
+      max-height: 120px;
+    }
   }
 `;
 

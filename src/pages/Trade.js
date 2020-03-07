@@ -34,6 +34,9 @@ const wrapper = css`
 
     ${media.down('sm')} {
       margin-top: 8px;
+      &:not(:last-of-type) {
+        max-height: 400px;
+      }
     }
 
     &:last-of-type {
