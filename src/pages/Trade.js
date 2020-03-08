@@ -1,8 +1,8 @@
 import React from 'react';
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx, css, Global } from '@emotion/core';
 
-import media from '../common/media';
+import media from '../styles/media';
 import Layout from '../layouts/Layout';
 import TokenList from '../components/token/TokenList';
 import TokenInfo from '../components/token/TokenInfo';
@@ -34,6 +34,9 @@ const wrapper = css`
 
     ${media.down('sm')} {
       margin-top: 8px;
+      &:not(:last-of-type) {
+        max-height: 400px;
+      }
     }
 
     &:last-of-type {

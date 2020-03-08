@@ -4,14 +4,22 @@ import { jsx, css } from '@emotion/core';
 import InputWrapper from '../common/InputWrapper';
 
 const searchBox = css`
+  padding: 0;
   margin-top: 16px;
-  padding: 0 0 24px;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  label {
+    display: none;
+  }
   input {
-    padding: 8px 28px 8px 12px;
+    flex: 1;
+    width: auto;
+    padding-right: 28px;
   }
   i {
     cursor: default;
-    top: calc((100% - 48px) / 2);
+    top: calc(100% / 2 - 0.5em);
     right: 4px;
     color: #414141;
     position: absolute;

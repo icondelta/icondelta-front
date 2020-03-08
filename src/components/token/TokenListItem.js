@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { toggleFavorite } from '../../common/favorites';
 import { useTokenContext } from '../../contexts/TokenContext';
 import StarIcon from '../common/StarIcon';
+import media from '../../styles/media';
 
 const tokenListItem = css`
   color: inherit;
@@ -24,14 +25,15 @@ const tokenListItem = css`
     display: flex;
     align-items: center;
   }
-
-  &:hover {
-    & > div p span {
-      transform: translateX(4px);
-    }
-    & svg {
-      opacity: 1;
-      transform: translateX(0);
+  ${media.up('sm')} {
+    &:hover {
+      & > div p span {
+        transform: translateX(4px);
+      }
+      & svg {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   }
 

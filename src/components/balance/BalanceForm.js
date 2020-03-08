@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import media from '../../common/media';
+import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';

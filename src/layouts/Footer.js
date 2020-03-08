@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import media from '../common/media';
+import media from '../styles/media';
 
 const footer = css`
   width: 100%;

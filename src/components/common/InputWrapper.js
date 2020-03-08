@@ -3,20 +3,18 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 
 const inputWrapper = css`
-  flex: 1 1 auto;
+  flex: 1;
   position: relative;
 
   label {
     text-transform: capitalize;
   }
-
   input {
     width: 100%;
     padding: 8px 12px;
     border-radius: 4px;
     border: 1px solid #eee;
-    
-    &[type="number"] {
+    &[type='number'] {
       text-align: right;
     }
   }
