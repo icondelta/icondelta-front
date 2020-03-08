@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import media from '../../common/media';
+import media from '../../styles/media';
 import { useTokenContext } from '../../contexts/TokenContext';
 
 const balanceInfoWrapper = css`

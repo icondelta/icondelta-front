@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import media from '../../common/media';
+import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useState } from 'react';
 
@@ -21,9 +21,9 @@ const trollboxWrapper = css`
     border-bottom: 1px solid #e0e0e0;
   }
   .inner_scroll {
-    padding-bottom: 8px;
+    margin-bottom: 8px;
     ${media.down('sm')} {
-      padding-bottom: 4px;
+      margin-bottom: 4px;
       min-height: 120px;
       max-height: 120px;
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import media from '../../common/media';
+import media from '../../styles/media';
 import { menuHeader } from '../../styles/common';
 import HistoryOrderItem from './HistoryOrderItem';
 import HistoryTradeItem from './HistoryTradeItem';
@@ -9,7 +9,8 @@ import { history } from '../../common/dummy';
 import HistoryHeader from './HistoryHeader';
 
 const historyWrapper = css`
-  height: 15rem;
+  min-height: 15rem;
+  max-height: 15rem;
   margin: 16px 0 0 calc(25% + 16px);
   border-top: none;
   width: calc(75% - 16px);
@@ -59,6 +60,7 @@ const History = () => {
           ? history.order.map(order => <HistoryOrderItem key={order.signature} data={order} />)
           : history.trade.map(trade => <HistoryTradeItem key={trade.txHash} data={trade} />)}
       </div>
+      {/* {window.getComputedStyle(document.querySelector('.card > inner_scroll'))['lineHeight']} */}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 
 import Header from './Header';
 import Footer from './Footer';
-import media from '../common/media';
+import media from '../styles/media';
 import UiContextProvider from '../contexts/UiContext';
 import TokenContextProvider from '../contexts/TokenContext';
 

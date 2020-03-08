@@ -1,0 +1,24 @@
+@mixin button($color, $darken: 8%) {
+  background-color: $color;
+  &:hover {
+    background-color: darken($color, $darken);
+  }
+}
+
+button {
+  &:hover {
+    background-color: darken($color: #fafafa, $amount: 50);
+  }
+}
+
+.btn {
+  @include button(#e6f8fa, 15%);
+}
+
+.buy-btn {
+  @include button(#e12343);
+}
+
+.sell-btn {
+  @include button(#1763b6);
+}

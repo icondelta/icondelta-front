@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
-import media from '../../common/media';
+import media from '../../styles/media';
 import TokenListItem from './TokenListItem';
 import TokenSearchBar from './TokenSearchBar';
 import { useUiContext } from '../../contexts/UiContext';
@@ -82,10 +82,10 @@ const overlay = visible => css`
   }
 `;
 
-const onlyFavoriteWrapper = css`
+const onlyFavoriteIconWrapper = css`
+  padding: 0;
+  margin: 16px 8px 24px 0;
   display: inline-flex;
-  margin: 16px 8px 0 0;
-  padding: 0 0 24px;
   align-items: center;
 
   svg {
@@ -136,7 +136,7 @@ const TokenList = () => {
     <>
       <div className="card" css={[tokenListWrapper, listVisible(menuVisible)]}>
         <div className="card__title">
-          <span css={[onlyFavoriteWrapper]}>
+          <span css={[onlyFavoriteIconWrapper]}>
             <StarIcon fill={onlyFavorite} onClick={toggleOnlyFavorite} />
           </span>
           <TokenSearchBar text={searchText} handleTextChange={handleTextChange} />
