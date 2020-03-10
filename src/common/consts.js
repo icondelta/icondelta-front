@@ -1,3 +1,9 @@
+export const isProd = process.env.NODE_ENV === 'production';
+
+// TODO: Add server base url for production
+export const SERVER_BASE_URL = isProd ? 'http://localhost:8000' : '';
+export const ICON_NETWORK_URL = isProd ? 'https://wallet.icon.foundation' : 'https://bicon.net.solidwallet.io';
+
 export const TOKENS = [
   {
     symbol: 'AC3',
