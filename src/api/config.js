@@ -1,10 +1,6 @@
 import axios from 'axios';
-import { SERVER_BASE_URL, ICON_NETWORK_URL } from '../common/consts';
+import { SERVER_API_URL, ICON_API_URL } from '../common/consts';
 
-export const iconApiInstance = () => {
-  return axios.create({ baseURL: `${ICON_NETWORK_URL}/api` });
-};
+export const iconApi = axios.create({ baseURL: `${ICON_API_URL}/api` });
 
-export const serverApiInstance = () => {
-  return axios.create({ baseURL: SERVER_BASE_URL });
-};
+export const serverApi = axios.create({ baseURL: SERVER_API_URL });
