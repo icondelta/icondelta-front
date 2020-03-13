@@ -1,12 +1,12 @@
 import { iconApi } from '../config';
-import { loadWalletICXParam, loadDepositedICXParam } from './params';
+import { loadWalletICXBody, loadDepositedICXBody } from './body';
 
 export const loadWalletICX = address => {
-  return iconApi.post('/v3', loadWalletICXParam(address));
+  return iconApi.post('/v3', loadWalletICXBody(address));
 };
 
 export const loadDepositedICX = address => {
-  return iconApi.post('/v3', loadDepositedICXParam(address));
+  return iconApi.post('/v3', loadDepositedICXBody(address));
 };
 
 export const loadICX = async address => {
