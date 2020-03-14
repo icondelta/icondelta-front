@@ -1,21 +1,37 @@
 import { iconApi } from '../config';
-import { loadWalletICXParam, loadDepositedICXParam } from './params';
+import { walletICXBody, depositedICXBody, walletTokenBody, depositedTokenBody } from './body';
 
-export const loadWalletICX = address => {
-  return iconApi.post('/v3', loadWalletICXParam(address));
-};
+const loadWalletICX = address => iconApi.post('/v3', walletICXBody(address));
 
-export const loadDepositedICX = address => {
-  return iconApi.post('/v3', loadDepositedICXParam(address));
-};
+const loadDepositedICX = address => iconApi.post('/v3', depositedICXBody(address));
 
-export const loadICX = async address => {
+const loadWalletToken = (address, tokenAddress) => iconApi.post('/v3', walletTokenBody(address, tokenAddress));
+
+const loadDepositedToken = (address, tokenAddress) => iconApi.post('/v3', depositedTokenBody(address, tokenAddress));
+
+export const loadICXBalance = async address => {
   try {
+    const [wallet, deposited] = await Promise.all([loadWalletICX(address), loadDepositedICX(address)]);
     return {
-      wallet: (await loadWalletICX(address)).data.result,
-      deposited: (await loadDepositedICX(address)).data.result,
+      wallet: wallet.data.result,
+      deposited: deposited.data.result,
     };
   } catch (e) {
-    throw Error(e.message);
+    throw e;
+  }
+};
+
+export const loadTokenBalance = async (address, tokenAddress) => {
+  try {
+    const [wallet, deposited] = await Promise.all([
+      loadWalletToken(address, tokenAddress),
+      loadDepositedToken(address, tokenAddress),
+    ]);
+    return {
+      wallet: wallet.data.result,
+      deposited: deposited.data.result,
+    };
+  } catch (e) {
+    throw e;
   }
 };
