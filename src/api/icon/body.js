@@ -8,16 +8,35 @@ const basebody = (method, params) =>
     params,
   });
 
-export const loadWalletICXParam = address => basebody('icx_getBalance', { address });
+const queryBody = params => basebody('icx_call', { dataType: 'call', ...params });
 
-export const loadDepositedICXParam = address =>
-  basebody('icx_call', {
+export const walletICXBody = address => basebody('icx_getBalance', { address });
+
+export const depositedICXBody = address =>
+  queryBody({
     to: SCORE_ADDRESS,
-    dataType: 'call',
     data: {
       method: 'balanceOf',
       params: {
         _address: address,
       },
+    },
+  });
+
+export const walletTokenBody = (address, tokenAddress) =>
+  queryBody({
+    to: tokenAddress,
+    data: {
+      method: 'balanceOf',
+      params: { _owner: address },
+    },
+  });
+
+export const depositedTokenBody = (address, tokenAddress) =>
+  queryBody({
+    to: SCORE_ADDRESS,
+    data: {
+      method: 'tokenBalanceOf',
+      params: { _address: address, _tokenAddress: tokenAddress },
     },
   });
