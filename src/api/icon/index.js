@@ -1,37 +1,20 @@
 import { iconApi } from '../config';
 import { walletICXBody, depositedICXBody, walletTokenBody, depositedTokenBody } from './body';
 
-const loadWalletICX = address => iconApi.post('/v3', walletICXBody(address));
+const loadWalletICX = address => iconApi.post('/v3', walletICXBody(address)).then(res => res.data.result);
 
-const loadDepositedICX = address => iconApi.post('/v3', depositedICXBody(address));
+const loadDepositedICX = address => iconApi.post('/v3', depositedICXBody(address)).then(res => res.data.result);
 
-const loadWalletToken = (address, tokenAddress) => iconApi.post('/v3', walletTokenBody(address, tokenAddress));
+const loadWalletToken = (address, tokenAddress) =>
+  iconApi.post('/v3', walletTokenBody(address, tokenAddress)).then(res => res.data.result);
 
-const loadDepositedToken = (address, tokenAddress) => iconApi.post('/v3', depositedTokenBody(address, tokenAddress));
+const loadDepositedToken = (address, tokenAddress) =>
+  iconApi.post('/v3', depositedTokenBody(address, tokenAddress)).then(res => res.data.result);
 
-export const loadICXBalance = async address => {
-  try {
-    const [wallet, deposited] = await Promise.all([loadWalletICX(address), loadDepositedICX(address)]);
-    return {
-      wallet: wallet.data.result,
-      deposited: deposited.data.result,
-    };
-  } catch (e) {
-    throw e;
-  }
+export const loadICXBalances = address => {
+  return Promise.all([loadWalletICX(address), loadDepositedICX(address)]);
 };
 
-export const loadTokenBalance = async (address, tokenAddress) => {
-  try {
-    const [wallet, deposited] = await Promise.all([
-      loadWalletToken(address, tokenAddress),
-      loadDepositedToken(address, tokenAddress),
-    ]);
-    return {
-      wallet: wallet.data.result,
-      deposited: deposited.data.result,
-    };
-  } catch (e) {
-    throw e;
-  }
+export const loadTokenBalances = async (address, tokenAddress) => {
+  return Promise.all([loadWalletToken(address, tokenAddress), loadDepositedToken(address, tokenAddress)]);
 };
