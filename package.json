@@ -13,13 +13,13 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "axios": "^0.19.2",
-    "dayjs": "^1.8.22",
+    "dayjs": "^1.8.23",
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.0"
+    "react-scripts": "^3.4.1"
   },
   "eslintConfig": {
     "extends": "react-app",
