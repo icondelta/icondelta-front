@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-import media from './media';
 
 export const menuHeader = target =>
   target
