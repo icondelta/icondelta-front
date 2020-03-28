@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
 import { useTokenContext } from '../../contexts/TokenContext';
+import { useBalanceContext } from '../../contexts/BalanceContext';
+import { loadICXBalances, loadTokenBalances } from '../../api/icon';
 
 const balanceInfoWrapper = css`
   flex: 1;
@@ -53,6 +55,33 @@ const balanceInfoBody = css`
 
 const BalanceInfo = () => {
   const { token } = useTokenContext();
+  const { balance, setBalance } = useBalanceContext();
+
+  useEffect(() => {
+    setBalance({
+      ...balance,
+      loading: true,
+    });
+    Promise.all([
+      loadICXBalances('hx6ac579274d490addb882977b2dd199a33310351c'),
+      loadTokenBalances('hx6ac579274d490addb882977b2dd199a33310351c', token.address),
+    ])
+      .then(([icx, token]) =>
+        setBalance({
+          icx: { wallet: icx[0], deposited: icx[1] },
+          token: { wallet: token[0], deposited: token[1] },
+          loading: false,
+        })
+      )
+      .catch(e => {
+        console.error(e);
+        setBalance({
+          ...balance,
+          loading: false,
+        });
+      });
+  }, [token]);
+
   return (
     <div className="card" css={[balanceInfoWrapper]}>
       <div className="card__title">BALANCES</div>
@@ -64,13 +93,13 @@ const BalanceInfo = () => {
         </div>
         <div>
           <span>ICX:</span>
-          <span>0</span>
-          <span>0</span>
+          <span>{balance.icx.wallet}</span>
+          <span>{balance.icx.deposited}</span>
         </div>
         <div>
           <span>{token.symbol}:</span>
-          <span>0</span>
-          <span>0</span>
+          <span>{balance.token.wallet}</span>
+          <span>{balance.token.deposited}</span>
         </div>
       </div>
     </div>

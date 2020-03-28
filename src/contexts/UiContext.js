@@ -1,7 +1,6 @@
-import React, { createContext, useContext } from 'react';
-import { useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-export const UiContext = createContext();
+const UiContext = createContext();
 
 export const useUiContext = () => useContext(UiContext);
 
