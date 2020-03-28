@@ -66,13 +66,13 @@ const BalanceInfo = () => {
       loadICXBalances('hx6ac579274d490addb882977b2dd199a33310351c'),
       loadTokenBalances('hx6ac579274d490addb882977b2dd199a33310351c', token.address),
     ])
-      .then(([icx, token]) => {
+      .then(([icx, token]) =>
         setBalance({
           icx: { wallet: icx[0], deposited: icx[1] },
           token: { wallet: token[0], deposited: token[1] },
           loading: false,
-        });
-      })
+        })
+      )
       .catch(e => {
         console.error(e);
         setBalance({
