@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
+import { ReactComponent as RefreshIcon } from '../../assets/repeat.svg';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { useBalanceContext } from '../../contexts/BalanceContext';
 import { loadICXBalances, loadTokenBalances } from '../../api/icon';
@@ -16,7 +17,21 @@ const balanceInfoWrapper = css`
   .card__title {
     color: #1aaaba;
     padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid #e0e0e0;
+
+    span {
+      display: flex;
+    }
+
+    svg {
+      cursor: pointer;
+      user-select: none;
+      width: 1rem;
+      height: 1rem;
+    }
   }
   .card__body {
     padding-top: 0;
@@ -57,34 +72,51 @@ const BalanceInfo = () => {
   const { token } = useTokenContext();
   const { balance, setBalance } = useBalanceContext();
 
+  // TODO: Add address parameter in loadBalances function
   useEffect(() => {
-    setBalance({
-      ...balance,
-      loading: true,
-    });
-    Promise.all([
-      loadICXBalances('hx6ac579274d490addb882977b2dd199a33310351c'),
-      loadTokenBalances('hx6ac579274d490addb882977b2dd199a33310351c', token.address),
-    ])
-      .then(([icx, token]) =>
-        setBalance({
-          icx: { wallet: icx[0], deposited: icx[1] },
-          token: { wallet: token[0], deposited: token[1] },
-          loading: false,
-        })
-      )
-      .catch(e => {
-        console.error(e);
-        setBalance({
-          ...balance,
-          loading: false,
-        });
-      });
+    loadBalances();
   }, [token]);
+
+  const handleRefresh = () => {
+    if (!balance.loading) {
+      loadBalances();
+    }
+  };
+
+  const loadBalances = useCallback(address => {
+    if (address) {
+      setBalance({
+        icx: { wallet: 0, deposited: 0 },
+        token: { wallet: 0, deposited: 0 },
+        loading: true,
+      });
+
+      Promise.all([loadICXBalances(address), loadTokenBalances(address, token.address)])
+        .then(([icx, token]) =>
+          setBalance({
+            icx: { wallet: icx[0], deposited: icx[1] },
+            token: { wallet: token[0], deposited: token[1] },
+            loading: false,
+          })
+        )
+        .catch(e => {
+          console.error(e);
+          setBalance({
+            ...balance,
+            loading: false,
+          });
+        });
+    }
+  }, []);
 
   return (
     <div className="card" css={[balanceInfoWrapper]}>
-      <div className="card__title">BALANCES</div>
+      <div className="card__title">
+        <span>BALANCES</span>
+        <span>
+          <RefreshIcon onClick={handleRefresh} />
+        </span>
+      </div>
       <div className="card__body" css={[balanceInfoBody]}>
         <div>
           <span></span>

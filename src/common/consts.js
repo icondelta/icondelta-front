@@ -1,12 +1,12 @@
-export const isProd = process.env.NODE_ENV === 'production';
+export const prod = process.env.NODE_ENV === 'production';
 
-export const SCORE_ADDRESS = isProd
+export const SCORE_ADDRESS = prod
   ? 'cxe014be09624aa681f441a632059245279c7bd554'
   : 'cxfd865d6bbfd2931c053e6b105961cd43a3ad9c22';
 
 // TODO: Add server base url for production
-export const SERVER_API_URL = isProd ? '' : 'http://localhost:8000';
-export const ICON_API_URL = isProd ? 'https://wallet.icon.foundation' : 'https://bicon.net.solidwallet.io';
+export const SERVER_API_URL = prod ? '' : 'http://localhost:8000';
+export const ICON_API_URL = prod ? 'https://wallet.icon.foundation' : 'https://bicon.net.solidwallet.io';
 
 export const TOKENS = [
   {
