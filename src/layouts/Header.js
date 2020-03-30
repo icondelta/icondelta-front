@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import media from '../styles/media';
 import { useTokenContext } from '../contexts/TokenContext';
 import { useUiContext } from '../contexts/UiContext';
-import { ReactComponent as Help } from '../styles/help-circle.svg';
+import { ReactComponent as HelpIcon } from '../assets/help-circle.svg';
 
 const header = css`
   height: 60px;
@@ -145,7 +145,7 @@ const Header = () => {
             target="_blank"
           >
             How to use
-            <Help />
+            <HelpIcon />
           </a>
         </div>
       </nav>
