@@ -6,6 +6,7 @@ import { ReactComponent as RefreshIcon } from '../../assets/repeat.svg';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { useBalanceContext } from '../../contexts/BalanceContext';
 import { loadICXBalances, loadTokenBalances } from '../../api/icon';
+import { loopToIcx } from "../../common/converter";
 
 const balanceInfoWrapper = css`
   flex: 1;
@@ -94,8 +95,8 @@ const BalanceInfo = () => {
       Promise.all([loadICXBalances(address), loadTokenBalances(address, token.address)])
         .then(([icx, token]) =>
           setBalance({
-            icx: { wallet: icx[0], deposited: icx[1] },
-            token: { wallet: token[0], deposited: token[1] },
+            icx: { wallet: loopToIcx(icx[0]), deposited: loopToIcx(icx[1]) },
+            token: { wallet: loopToIcx(token[0]), deposited: loopToIcx(token[1]) },
             loading: false,
           })
         )
