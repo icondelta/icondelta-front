@@ -5,6 +5,7 @@ import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
+import { icxToLoop } from '../../common/converter';
 
 const balanceFormWrapper = css`
   border-top: none;
@@ -15,10 +16,13 @@ const balanceFormWrapper = css`
 `;
 
 const balanceFormBody = css`
-  display: flex;
-  flex: 1;
-  ${media.down('sm')} {
-    flex-direction: column;
+  &,
+  & > form {
+    display: flex;
+    flex: 1;
+    ${media.down('sm')} {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -97,6 +101,16 @@ const TokenBalanceForm = () => {
     }
   }, []);
 
+  const handleIcxSumbit = e => {
+    e.preventDefault();
+    console.log(icxToLoop(inputs.icxAmount));
+  };
+
+  const handleTokenSumbit = e => {
+    e.preventDefault();
+    console.log(icxToLoop(inputs.tokenAmount));
+  };
+
   return (
     <div className="card" css={[balanceFormWrapper]}>
       <div css={[activeStyle(type === 'DEPOSIT' ? 1 : 2), menuHeader('div')]}>
@@ -104,32 +118,40 @@ const TokenBalanceForm = () => {
         <div onClick={changeType}>WITHDRAW</div>
       </div>
       <div className="card__body" css={[balanceFormBody]}>
-        <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
-          <div>
-            <input
-              id="icxAmount"
-              type="number"
-              min={0}
-              value={inputs.icxAmount}
-              onChange={handleChange}
-              placeholder="0"
-            />
-            <button className="btn">{type}</button>
-          </div>
-        </InputWrapper>
-        <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
-          <div>
-            <input
-              id="tokenAmount"
-              type="number"
-              min={0}
-              value={inputs.tokenAmount}
-              onChange={handleChange}
-              placeholder="0"
-            />
-            <button className="btn">{type}</button>
-          </div>
-        </InputWrapper>
+        <form onSubmit={handleIcxSumbit}>
+          <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
+            <div>
+              <input
+                id="icxAmount"
+                type="number"
+                min={0}
+                value={inputs.icxAmount}
+                onChange={handleChange}
+                placeholder="0"
+              />
+              <button type="submit" className="btn">
+                {type}
+              </button>
+            </div>
+          </InputWrapper>
+        </form>
+        <form onSubmit={handleTokenSumbit}>
+          <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
+            <div>
+              <input
+                id="tokenAmount"
+                type="number"
+                min={0}
+                value={inputs.tokenAmount}
+                onChange={handleChange}
+                placeholder="0"
+              />
+              <button type="submit" className="btn">
+                {type}
+              </button>
+            </div>
+          </InputWrapper>
+        </form>
       </div>
     </div>
   );
