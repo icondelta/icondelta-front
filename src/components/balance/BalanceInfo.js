@@ -1,12 +1,12 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import Overlay from '../common/Overlay';
 import media from '../../styles/media';
-import { ReactComponent as RefreshIcon } from '../../assets/repeat.svg';
 import { useTokenContext } from '../../contexts/TokenContext';
-import { useBalanceContext } from '../../contexts/BalanceContext';
-import { loadICXBalances, loadTokenBalances } from '../../api/icon';
-import { loopToIcx } from "../../common/converter";
+import { useWalletContext } from '../../contexts/WalletContext';
+import { ReactComponent as RefreshIcon } from '../../assets/repeat.svg';
+import { ReactComponent as LoadingIcon } from '../../assets/loader.svg';
 
 const balanceInfoWrapper = css`
   flex: 1;
@@ -34,81 +34,61 @@ const balanceInfoWrapper = css`
       height: 1rem;
     }
   }
-  .card__body {
-    padding-top: 0;
-  }
 `;
 
-const balanceInfoBody = css`
+const balanceInfoBody = loading => css`
   flex: 1;
   display: flex;
+  position: relative;
   flex-direction: column;
+
   div {
     flex: 1;
     display: flex;
-    span {
-      justify-content: flex-end;
-    }
+    color: ${loading ? '#ebebeb' : 'inherit'};
+
     &:first-of-type {
       span {
         justify-content: center;
       }
     }
+    span {
+      flex: 2.5;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      &:first-of-type {
+        flex: 1;
+      }
+    }
   }
-  span {
-    flex: 2.5;
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 8px;
-    ${media.down('lg')} {
-      padding: 4px 0;
-    }
-    &:first-of-type {
-      flex: 1;
-    }
+`;
+
+const overlay = css`
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  svg {
+    font-size: 2.5rem;
+    color: rgba(0, 0, 0, 0.67);
+    animation: spin 2.5s infinite linear;
   }
 `;
 
 const BalanceInfo = () => {
   const { token } = useTokenContext();
-  const { balance, setBalance } = useBalanceContext();
+  const { address, balance, loadBalances } = useWalletContext();
 
-  // TODO: Add address parameter in loadBalances function
   useEffect(() => {
-    loadBalances();
-  }, [token]);
+    loadBalances(token);
+  }, [address, token]);
 
   const handleRefresh = () => {
     if (!balance.loading) {
-      loadBalances();
+      loadBalances(token);
     }
   };
-
-  const loadBalances = useCallback(address => {
-    if (address) {
-      setBalance({
-        icx: { wallet: 0, deposited: 0 },
-        token: { wallet: 0, deposited: 0 },
-        loading: true,
-      });
-
-      Promise.all([loadICXBalances(address), loadTokenBalances(address, token.address)])
-        .then(([icx, token]) =>
-          setBalance({
-            icx: { wallet: loopToIcx(icx[0]), deposited: loopToIcx(icx[1]) },
-            token: { wallet: loopToIcx(token[0]), deposited: loopToIcx(token[1]) },
-            loading: false,
-          })
-        )
-        .catch(e => {
-          console.error(e);
-          setBalance({
-            ...balance,
-            loading: false,
-          });
-        });
-    }
-  }, []);
 
   return (
     <div className="card" css={[balanceInfoWrapper]}>
@@ -118,7 +98,7 @@ const BalanceInfo = () => {
           <RefreshIcon onClick={handleRefresh} />
         </span>
       </div>
-      <div className="card__body" css={[balanceInfoBody]}>
+      <div className="card__body" css={[balanceInfoBody(balance.loading)]}>
         <div>
           <span></span>
           <span>WALLET</span>
@@ -134,6 +114,11 @@ const BalanceInfo = () => {
           <span>{balance.token.wallet}</span>
           <span>{balance.token.deposited}</span>
         </div>
+        {balance.loading && (
+          <Overlay style={[overlay]}>
+            <LoadingIcon />
+          </Overlay>
+        )}
       </div>
     </div>
   );
