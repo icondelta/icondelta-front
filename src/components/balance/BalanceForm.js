@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
-import { icxToLoop } from '../../common/converter';
+import { icxToLoop } from '../../commons/converter';
+import { useWalletContext } from '../../contexts/WalletContext';
 
 const balanceFormWrapper = css`
   border-top: none;
@@ -79,6 +80,8 @@ const activeStyle = active => css`
 
 const TokenBalanceForm = () => {
   const { token } = useTokenContext();
+  const { address, balance } = useWalletContext();
+
   const [type, setType] = useState('DEPOSIT');
   const [inputs, setInputs] = useState({
     tokenAmount: '',
@@ -91,7 +94,7 @@ const TokenBalanceForm = () => {
     }
   };
 
-  const handleChange = useCallback(({ target }) => {
+  const handleChange = ({ target }) => {
     const { id, value } = target;
     if (Number(value) >= 0 || !value) {
       setInputs(prev => ({
@@ -99,15 +102,25 @@ const TokenBalanceForm = () => {
         [id]: value,
       }));
     }
-  }, []);
+  };
 
   const handleIcxSumbit = e => {
     e.preventDefault();
+    if (!address || !inputs.icxAmount) return;
+
+    if (type === 'DEPOSIT' && balance.icx.wallet < Number(inputs.icxAmount)) return;
+    if (type === 'WITHDRAW' && balance.icx.deposited < Number(inputs.icxAmount)) return;
+
     console.log(icxToLoop(inputs.icxAmount));
   };
 
   const handleTokenSumbit = e => {
     e.preventDefault();
+    if (!address || !inputs.tokenAmount) return;
+
+    if (type === 'DEPOSIT' && balance.token.wallet < Number(inputs.tokenAmount)) return;
+    if (type === 'WITHDRAW' && balance.token.deposited < Number(inputs.tokenAmount)) return;
+
     console.log(icxToLoop(inputs.tokenAmount));
   };
 
