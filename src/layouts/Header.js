@@ -9,6 +9,7 @@ import { ReactComponent as HelpIcon } from '../assets/help-circle.svg';
 const header = css`
   height: 60px;
   background: #fff;
+  border-bottom: 1px solid #e4e5e8;
   box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
   nav {
     width: 100%;
@@ -33,7 +34,7 @@ const header = css`
     align-items: center;
     display: inline-flex;
     text-decoration: none;
-    .icon {
+    .material-icons {
       color: #1aaaba;
       font-size: 2rem;
       margin-right: 0.5rem;
@@ -101,8 +102,6 @@ const menuArrow = visible => css`
 const rightMenu = css`
   a {
     outline: none;
-    font-weight: bold;
-    color: #9e9e9e;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -111,11 +110,10 @@ const rightMenu = css`
     }
   }
   svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin: 0 4px;
-    ${media.down('sm')} {
-    }
+    stroke-width: 2;
   }
 `;
 
@@ -128,7 +126,7 @@ const Header = () => {
       <nav>
         <div>
           <span className="title">
-            <i className="material-icons icon">autorenew</i>
+            <i className="material-icons">autorenew</i>
             icondelta
           </span>
           <div className="subtitle" onClick={toggleMenuVisible}>
@@ -139,13 +137,9 @@ const Header = () => {
           </div>
         </div>
         <div css={[rightMenu]}>
-          <a
-            href="https://www.notion.so/How-to-Guide-5bc85e598dba4cb599b365d0b95f82d4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            How to use
+          <a href="https://www.notion.so/How-to-Guide-5bc85e598dba4cb599b365d0b95f82d4" target="_blank">
             <HelpIcon />
+            How can i use?
           </a>
         </div>
       </nav>

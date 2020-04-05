@@ -1,10 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
+import { icxToLoop } from '../../commons/converter';
+import { useWalletContext } from '../../contexts/WalletContext';
 
 const balanceFormWrapper = css`
   border-top: none;
@@ -15,10 +17,13 @@ const balanceFormWrapper = css`
 `;
 
 const balanceFormBody = css`
-  display: flex;
-  flex: 1;
-  ${media.down('sm')} {
-    flex-direction: column;
+  &,
+  & > form {
+    display: flex;
+    flex: 1;
+    ${media.down('sm')} {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -75,6 +80,8 @@ const activeStyle = active => css`
 
 const TokenBalanceForm = () => {
   const { token } = useTokenContext();
+  const { address, balance } = useWalletContext();
+
   const [type, setType] = useState('DEPOSIT');
   const [inputs, setInputs] = useState({
     tokenAmount: '',
@@ -87,7 +94,7 @@ const TokenBalanceForm = () => {
     }
   };
 
-  const handleChange = useCallback(({ target }) => {
+  const handleChange = ({ target }) => {
     const { id, value } = target;
     if (Number(value) >= 0 || !value) {
       setInputs(prev => ({
@@ -95,7 +102,27 @@ const TokenBalanceForm = () => {
         [id]: value,
       }));
     }
-  }, []);
+  };
+
+  const handleIcxSumbit = e => {
+    e.preventDefault();
+    if (!address || !inputs.icxAmount) return;
+
+    if (type === 'DEPOSIT' && balance.icx.wallet < Number(inputs.icxAmount)) return;
+    if (type === 'WITHDRAW' && balance.icx.deposited < Number(inputs.icxAmount)) return;
+
+    console.log(icxToLoop(inputs.icxAmount));
+  };
+
+  const handleTokenSumbit = e => {
+    e.preventDefault();
+    if (!address || !inputs.tokenAmount) return;
+
+    if (type === 'DEPOSIT' && balance.token.wallet < Number(inputs.tokenAmount)) return;
+    if (type === 'WITHDRAW' && balance.token.deposited < Number(inputs.tokenAmount)) return;
+
+    console.log(icxToLoop(inputs.tokenAmount));
+  };
 
   return (
     <div className="card" css={[balanceFormWrapper]}>
@@ -104,32 +131,40 @@ const TokenBalanceForm = () => {
         <div onClick={changeType}>WITHDRAW</div>
       </div>
       <div className="card__body" css={[balanceFormBody]}>
-        <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
-          <div>
-            <input
-              id="icxAmount"
-              type="number"
-              min={0}
-              value={inputs.icxAmount}
-              onChange={handleChange}
-              placeholder="0"
-            />
-            <button className="btn">{type}</button>
-          </div>
-        </InputWrapper>
-        <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
-          <div>
-            <input
-              id="tokenAmount"
-              type="number"
-              min={0}
-              value={inputs.tokenAmount}
-              onChange={handleChange}
-              placeholder="0"
-            />
-            <button className="btn">{type}</button>
-          </div>
-        </InputWrapper>
+        <form onSubmit={handleIcxSumbit}>
+          <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
+            <div>
+              <input
+                id="icxAmount"
+                type="number"
+                min={0}
+                value={inputs.icxAmount}
+                onChange={handleChange}
+                placeholder="0"
+              />
+              <button type="submit" className="btn">
+                {type}
+              </button>
+            </div>
+          </InputWrapper>
+        </form>
+        <form onSubmit={handleTokenSumbit}>
+          <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
+            <div>
+              <input
+                id="tokenAmount"
+                type="number"
+                min={0}
+                value={inputs.tokenAmount}
+                onChange={handleChange}
+                placeholder="0"
+              />
+              <button type="submit" className="btn">
+                {type}
+              </button>
+            </div>
+          </InputWrapper>
+        </form>
       </div>
     </div>
   );

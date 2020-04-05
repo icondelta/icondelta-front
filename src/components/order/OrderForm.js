@@ -47,7 +47,7 @@ const activeStyle = active => css`
 const orderButton = css`
   width: 100%;
   color: #fafafa;
-  line-height: 1.5;
+  line-height: 1.25;
   margin-top: 1rem;
   font-size: 1.2rem;
   padding: 8px 16px;

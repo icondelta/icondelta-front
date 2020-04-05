@@ -48,28 +48,28 @@ export const global = css`
     box-shadow: 0 3px 10px 0 rgba(66, 66, 66, 0.05);
 
     .card__title {
-      padding: 16px 16px 0;
+      padding: 8px 16px;
 
       ${media.down('sm')} {
-        padding: 8px 8px 0;
+        padding: 4px 8px;
       }
     }
 
     .card__body {
-      padding: 8px 16px 16px;
+      padding: 8px 16px;
 
       ${media.down('sm')} {
-        padding: 8px;
+        padding: 4px 8px;
       }
     }
 
     .card__footer {
       margin-top: -8px;
-      padding: 0 16px 16px;
+      padding: 0 16px 8px;
 
       ${media.down('sm')} {
         margin-top: -4px;
-        padding: 0 8px 8px;
+        padding: 0 8px 4px;
       }
     }
   }
