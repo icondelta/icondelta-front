@@ -42,7 +42,7 @@ export const tableHeader = css`
   padding: 0 8px;
 
   div {
-    padding: 12px 0;
+    padding: 8px 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
