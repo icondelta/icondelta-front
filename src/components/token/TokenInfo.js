@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
 import StarIcon from '../common/StarIcon';
-import { toggleFavorite } from '../../common/favorites';
+import { toggleFavorite } from '../../commons/favorites';
 import { useTokenContext } from '../../contexts/TokenContext';
 
 const tokenInfoWrapper = css`

@@ -1,8 +1,8 @@
 import React, { createContext, useState, useMemo, useContext, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { TOKENS } from '../common/consts';
-import { getToken } from '../common/utils';
-import { getFavorites } from '../common/favorites';
+import { TOKENS } from '../commons/consts';
+import { getToken } from '../commons/utils';
+import { getFavorites } from '../commons/favorites';
 
 const TokenContext = createContext();
 
@@ -25,25 +25,23 @@ export default ({ children }) => {
   }, [symbol]);
 
   const getTokens = useMemo(() => {
-    tokens.map(token => {
+    return tokens.map(token => {
       token.favorited = favorites[token.symbol];
       return token;
     });
-
-    setTokens([...tokens]);
-    return tokens;
   }, [favorites]);
 
-  const getFavoritedTokens = useMemo(() => {
-    return tokens.filter(token => favorites[token.symbol]);
-  }, [favorites]);
+  const getFavoritedTokens = useMemo(() => tokens.filter(token => favorites[token.symbol]), [favorites]);
 
-  const addFavorites = useCallback(currToken => {
-    if (currToken.symbol === token.symbol) {
-      setToken({ ...currToken });
-    }
-    setFavorites(_ => getFavorites());
-  }, []);
+  const addFavorites = useCallback(
+    currToken => {
+      if (currToken.symbol === token.symbol) {
+        setToken({ ...currToken });
+      }
+      setFavorites(_ => getFavorites());
+    },
+    [token]
+  );
 
   return (
     <TokenContext.Provider value={{ token, favorites, addFavorites, getTokens, getFavoritedTokens }}>

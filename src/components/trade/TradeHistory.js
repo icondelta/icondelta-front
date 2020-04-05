@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import media from '../../styles/media';
 import TradeHistoryItem from './TradeHistoryItem';
 import { tableHeader, headerSize } from '../../styles/common';
-import { tradeHistory } from '../../common/dummy';
+import { tradeHistory } from '../../commons/dummy';
 
 const tradeWrapper = css`
   ${media.up('sm')} {
