@@ -103,6 +103,8 @@ const rightMenu = css`
   a {
     outline: none;
     display: flex;
+    color: initial;
+    line-height: 1;
     align-items: center;
     text-decoration: none;
     ${media.down('sm')} {
@@ -110,8 +112,8 @@ const rightMenu = css`
     }
   }
   svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     margin: 0 4px;
     stroke-width: 2;
   }
