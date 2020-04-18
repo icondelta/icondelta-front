@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 
-const isBigNumber = value => {
+const isBigNumber = (value) => {
   return BigNumber.isBigNumber(value);
 };
 
-const toBigNumber = value => {
+const toBigNumber = (value) => {
   if (isBigNumber(value)) return value;
   if (typeof value === 'string') {
     value = value.replace(/,/gi, '');
@@ -12,7 +12,7 @@ const toBigNumber = value => {
   return new BigNumber(`${value}`);
 };
 
-export const loopToIcx = loop => {
+export const loopToIcx = (loop) => {
   if (!loop) return 0;
 
   const parsed = toBigNumber(loop)
@@ -27,7 +27,7 @@ export const loopToIcx = loop => {
   return parsed;
 };
 
-export const icxToLoop = icx =>
+export const icxToLoop = (icx) =>
   toBigNumber(icx)
     .times(10 ** 18)
     .toNumber();

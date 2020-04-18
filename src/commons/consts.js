@@ -6,7 +6,9 @@ export const SCORE_ADDRESS = prod
 
 // TODO: Add server base url for production
 export const SERVER_API_URL = prod ? '' : 'http://localhost:8000';
-export const ICON_API_URL = prod ? 'https://wallet.icon.foundation' : 'https://bicon.net.solidwallet.io';
+export const ICON_API_URL = prod
+  ? 'https://wallet.icon.foundation'
+  : 'https://bicon.net.solidwallet.io';
 
 export const TOKENS = [
   {
