@@ -1,4 +1,4 @@
-import storage from './storage';
+import storage from '../utils/storage';
 
 export const getFavorites = () => {
   return storage.get('favorites') || {};

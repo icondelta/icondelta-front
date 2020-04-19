@@ -8,11 +8,11 @@ const basebody = (method, params) =>
     params,
   });
 
-const queryBody = params => basebody('icx_call', { dataType: 'call', ...params });
+const queryBody = (params) => basebody('icx_call', { dataType: 'call', ...params });
 
-export const walletICXBody = address => basebody('icx_getBalance', { address });
+export const walletICXBody = (address) => basebody('icx_getBalance', { address });
 
-export const depositedICXBody = address =>
+export const depositedICXBody = (address) =>
   queryBody({
     to: SCORE_ADDRESS,
     data: {

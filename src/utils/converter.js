@@ -12,6 +12,8 @@ const toBigNumber = (value) => {
   return new BigNumber(`${value}`);
 };
 
+export const muliply = (x, y) => toBigNumber(x).times(y).toNumber();
+
 export const loopToIcx = (loop) => {
   if (!loop) return 0;
 

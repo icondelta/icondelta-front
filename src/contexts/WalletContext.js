@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 
 import { loadICXBalances, loadTokenBalances } from '../api/icon';
-import { loopToIcx } from '../commons/converter';
+import { loopToIcx } from '../utils/converter';
 
 const WalletContext = createContext();
 
@@ -21,7 +21,7 @@ export default ({ children }) => {
   });
 
   const loadBalances = useCallback(
-    token => {
+    (token) => {
       if (address) {
         setBalance({
           ...balance,
@@ -36,7 +36,7 @@ export default ({ children }) => {
               loading: false,
             })
           )
-          .catch(e => {
+          .catch((e) => {
             console.error(e);
             setBalance({
               ...balance,
@@ -49,6 +49,8 @@ export default ({ children }) => {
   );
 
   return (
-    <WalletContext.Provider value={{ address, setAddress, balance, loadBalances }}>{children}</WalletContext.Provider>
+    <WalletContext.Provider value={{ address, setAddress, balance, loadBalances }}>
+      {children}
+    </WalletContext.Provider>
   );
 };
