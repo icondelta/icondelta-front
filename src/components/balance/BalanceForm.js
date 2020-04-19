@@ -5,7 +5,7 @@ import media from '../../styles/media';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
-import { icxToLoop } from '../../commons/converter';
+import { icxToLoop } from '../../utils/converter';
 import { useWalletContext } from '../../contexts/WalletContext';
 
 const balanceFormWrapper = css`
@@ -63,7 +63,7 @@ const inputWrapperStyle = css`
   }
 `;
 
-const activeStyle = active => css`
+const activeStyle = (active) => css`
   & div {
     &:first-of-type {
       border-right: 1px solid #e4e5e8;
@@ -97,14 +97,14 @@ const TokenBalanceForm = () => {
   const handleChange = ({ target }) => {
     const { id, value } = target;
     if (Number(value) >= 0 || !value) {
-      setInputs(prev => ({
+      setInputs((prev) => ({
         ...prev,
         [id]: value,
       }));
     }
   };
 
-  const handleIcxSumbit = e => {
+  const handleIcxSumbit = (e) => {
     e.preventDefault();
     if (!address || !inputs.icxAmount) return;
 
@@ -114,7 +114,7 @@ const TokenBalanceForm = () => {
     console.log(icxToLoop(inputs.icxAmount));
   };
 
-  const handleTokenSumbit = e => {
+  const handleTokenSumbit = (e) => {
     e.preventDefault();
     if (!address || !inputs.tokenAmount) return;
 
@@ -149,7 +149,11 @@ const TokenBalanceForm = () => {
           </InputWrapper>
         </form>
         <form onSubmit={handleTokenSumbit}>
-          <InputWrapper id="tokenAmount" label={`${type} ${token?.symbol}`} customStyle={inputWrapperStyle}>
+          <InputWrapper
+            id="tokenAmount"
+            label={`${type} ${token?.symbol}`}
+            customStyle={inputWrapperStyle}
+          >
             <div>
               <input
                 id="tokenAmount"

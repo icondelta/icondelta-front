@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { tableBody } from '../../styles/common';
 
-const bodyItems = type => css`
+const bodyItems = (type) => css`
   div {
     flex: 1 0;
     cursor: pointer;

@@ -56,7 +56,7 @@ const Trollbox = () => {
     setSay(target.value);
   };
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       console.log('enter!');
     }

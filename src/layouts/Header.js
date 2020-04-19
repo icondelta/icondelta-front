@@ -93,7 +93,7 @@ const header = css`
   }
 `;
 
-const menuArrow = visible => css`
+const menuArrow = (visible) => css`
   i {
     transform: rotate(${visible ? '180deg' : 0});
   }
@@ -139,7 +139,10 @@ const Header = () => {
           </div>
         </div>
         <div css={[rightMenu]}>
-          <a href="https://www.notion.so/How-to-Guide-5bc85e598dba4cb599b365d0b95f82d4" target="_blank">
+          <a
+            href="https://www.notion.so/How-to-Guide-5bc85e598dba4cb599b365d0b95f82d4"
+            target="_blank"
+          >
             <HelpIcon />
             How can i use?
           </a>

@@ -36,7 +36,7 @@ const balanceInfoWrapper = css`
   }
 `;
 
-const balanceInfoBody = loading => css`
+const balanceInfoBody = (loading) => css`
   flex: 1;
   display: flex;
   position: relative;

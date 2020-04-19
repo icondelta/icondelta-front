@@ -73,7 +73,7 @@ const balanceWrapper = css`
   }
 `;
 
-const Trade = props => {
+const Trade = (props) => {
   return (
     <Layout {...props}>
       <TokenList />

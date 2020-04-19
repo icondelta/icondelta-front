@@ -47,7 +47,11 @@ const Footer = () => {
   return (
     <footer css={footer}>
       <div>
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/icondelta/icondelta-front">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/icondelta/icondelta-front"
+        >
           <GithubIcon />
         </a>
       </div>
