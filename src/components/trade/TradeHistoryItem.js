@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { jsx, css } from '@emotion/core';
 import { tableBody } from '../../styles/common';
 
-const bodyItems = type => css`
+const bodyItems = (type) => css`
   div {
     color: ${type === 'buy' ? '#e12343' : '#1763b6'};
     background-color: ${type === 'buy' ? 'rgba(225, 35, 67, .05)' : 'rgba(23, 99, 182, .05)'};

@@ -1,15 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
+import { useWalletContext } from '../../contexts/WalletContext';
+import { muliply } from '../../utils/converter';
 
 const orderFormWrapper = css`
   border-top: 1px solid transparent;
 `;
 
-const assets = css`
+const orderForm = css`
   & > div {
     display: flex;
     line-height: 2;
@@ -29,7 +31,7 @@ const orderFormInputWrapper = css`
   }
 `;
 
-const activeStyle = active => css`
+const activeStyle = (active) => css`
   & > div:nth-of-type(${active}) {
     color: #fafafa;
     ${active === 1
@@ -53,34 +55,54 @@ const orderButton = css`
   padding: 8px 16px;
 `;
 
+const verifyOrder = (type, order, balance) => {
+  switch (type) {
+    case 'BUY':
+      if (order.total > balance.icx.deposited) return false;
+      return true;
+    case 'SELL':
+      if (order.amount > balance.token.deposited) return false;
+      return true;
+    default:
+      return false;
+  }
+};
+
 const OrderForm = () => {
   const { token } = useTokenContext();
+  const { balance } = useWalletContext();
   const [type, setType] = useState('BUY');
 
-  const [order, setOrder] = useState({
-    amount: 0,
-    price: 0,
-    total: 0,
-  });
+  const [amount, setAmount] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const changeType = ({ target }) => {
-    if (type !== target.textContent) {
-      setType(target.textContent);
+    type !== target.textContent && setType(target.textContent);
+  };
+
+  const handleAmountChange = ({ target }) => {
+    const parsed = parseFloat(target.value);
+    if (parsed || !target.value) {
+      setAmount(parsed);
+      setTotal(muliply(price, parsed));
     }
   };
 
-  const handleChange = useCallback(({ target }) => {
-    const { id, value } = target;
-    if (Number(value) > 0 || !value) {
-      setOrder(prev => ({
-        ...prev,
-        [id]: value,
-      }));
+  const handlePriceChange = ({ target }) => {
+    const parsed = parseFloat(target.value);
+    if (parsed || !target.value) {
+      setPrice(parsed);
+      setTotal(muliply(parsed, amount));
     }
-  }, []);
+  };
 
-  const handleOrder = e => {
+  const handleOrder = (e) => {
     e.preventDefault();
+
+    if (!verifyOrder(type, { amount, total }, balance)) {
+      alert('Can not order more than you have');
+    }
   };
 
   return (
@@ -89,7 +111,7 @@ const OrderForm = () => {
         <div onClick={changeType}>BUY</div>
         <div onClick={changeType}>SELL</div>
       </div>
-      <form className="card__body" css={[assets]} onSubmit={handleOrder}>
+      <form className="card__body" css={[orderForm]} onSubmit={handleOrder}>
         <div>
           <span>Balance:</span>
           <span>
@@ -102,19 +124,37 @@ const OrderForm = () => {
             0 <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
           </span>
         </div>
-        <InputWrapper id="price" label="Price" customStyle={[orderFormInputWrapper]}>
-          <input id="price" type="number" min={0} placeholder="0" value={order.price || ''} onChange={handleChange} />
-        </InputWrapper>
         <InputWrapper id="amount" label={`Amount`} customStyle={[orderFormInputWrapper]}>
-          <input id="amount" type="number" min={0} placeholder="0" value={order.amount || ''} onChange={handleChange} />
+          <input
+            id="amount"
+            type="number"
+            min={0}
+            placeholder="0"
+            value={amount || ''}
+            onChange={handleAmountChange}
+          />
+        </InputWrapper>
+        <InputWrapper id="price" label="Price" customStyle={[orderFormInputWrapper]}>
+          <input
+            id="price"
+            type="number"
+            min={0}
+            placeholder="0"
+            value={price || ''}
+            onChange={handlePriceChange}
+          />
         </InputWrapper>
         <div style={{ paddingTop: '12px' }}>
           <span>Total:</span>
           <span>
-            {order.total || 0} <span>{type === 'BUY' ? token.symbol : 'ICX'}</span>
+            {total || 0} <span>ICX</span>
           </span>
         </div>
-        <button type="submit" className={type === 'BUY' ? 'buy-btn' : 'sell-btn'} css={[orderButton]}>
+        <button
+          type="submit"
+          className={type === 'BUY' ? 'buy-btn' : 'sell-btn'}
+          css={[orderButton]}
+        >
           {type}
         </button>
       </form>

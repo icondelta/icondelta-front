@@ -24,7 +24,7 @@ const TradeHistory = () => {
         <div>AMOUNT</div>
       </div>
       <div className="inner_scroll">
-        {tradeHistory.map(data => (
+        {tradeHistory.map((data) => (
           <TradeHistoryItem key={data.txHash} data={data} />
         ))}
       </div>

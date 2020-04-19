@@ -29,10 +29,10 @@ const OrderBook = () => {
         <div>ICX</div>
       </div>
       <div className="inner_scroll">
-        {sellOrders.map(order => (
+        {sellOrders.map((order) => (
           <OrderBookItem key={order.signature} data={order} />
         ))}
-        {buyOrders.map(order => (
+        {buyOrders.map((order) => (
           <OrderBookItem key={order.signature} data={order} />
         ))}
       </div>

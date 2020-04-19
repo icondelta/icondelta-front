@@ -24,7 +24,7 @@ const historyWrapper = css`
   }
 `;
 
-const activeStyle = active => css`
+const activeStyle = (active) => css`
   & div {
     &:first-of-type {
       border-right: 1px solid #e4e5e8;
@@ -57,8 +57,8 @@ const History = () => {
       <HistoryHeader type={type} />
       <div className="inner_scroll">
         {type === 'order'
-          ? history.order.map(order => <HistoryOrderItem key={order.signature} data={order} />)
-          : history.trade.map(trade => <HistoryTradeItem key={trade.txHash} data={trade} />)}
+          ? history.order.map((order) => <HistoryOrderItem key={order.signature} data={order} />)
+          : history.trade.map((trade) => <HistoryTradeItem key={trade.txHash} data={trade} />)}
       </div>
       {/* {window.getComputedStyle(document.querySelector('.card > inner_scroll'))['lineHeight']} */}
     </div>

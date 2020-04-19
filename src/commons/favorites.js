@@ -1,22 +1,22 @@
-import storage from './storage';
+import storage from '../utils/storage';
 
 export const getFavorites = () => {
   return storage.get('favorites') || {};
 };
 
-export const setFavorites = symbol => {
+export const setFavorites = (symbol) => {
   const favorites = getFavorites() || {};
   favorites[symbol] = true;
   storage.set('favorites', favorites);
 };
 
-export const removeFavorites = symbol => {
+export const removeFavorites = (symbol) => {
   const favorites = getFavorites() || {};
   delete favorites[symbol];
   storage.set('favorites', favorites);
 };
 
-export const toggleFavorite = (token, addFavorites) => e => {
+export const toggleFavorite = (token, addFavorites) => (e) => {
   e.preventDefault();
   e.stopPropagation();
 

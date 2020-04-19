@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 
-export const menuHeader = target =>
+export const menuHeader = (target) =>
   target
     ? css`
         display: flex;

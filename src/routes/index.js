@@ -11,7 +11,7 @@ const Router = () => {
         <Redirect to="/AC3" />
       </Route>
       <Route path="/:symbol" component={Trade} />
-      <Route component={_ => <Error status={404} message="Page not found." />} />
+      <Route component={(_) => <Error status={404} message="Page not found." />} />
     </Switch>
   );
 };

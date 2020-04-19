@@ -63,7 +63,7 @@ const noResult = css`
   font-weight: bold;
 `;
 
-const overlay = visible => css`
+const overlay = (visible) => css`
   top: 0;
   left: 0;
   z-index: 99;
@@ -97,7 +97,7 @@ const onlyFavoriteIconWrapper = css`
   }
 `;
 
-const listVisible = visible => css`
+const listVisible = (visible) => css`
   ${media.down('lg')} {
     display: ${visible ? 'flex' : 'none'};
   }
@@ -109,12 +109,12 @@ const TokenList = () => {
   const { favorites, getTokens, getFavoritedTokens } = useTokenContext();
   const { menuVisible, toggleMenuVisible } = useUiContext();
 
-  const handleTextChange = useCallback(e => {
+  const handleTextChange = useCallback((e) => {
     setSearchText(e.target.value);
   }, []);
 
   const toggleOnlyFavorite = () => {
-    setOnlyFavorite(prev => !prev);
+    setOnlyFavorite((prev) => !prev);
   };
 
   const tokensByCondition = useMemo(() => {
@@ -122,14 +122,18 @@ const TokenList = () => {
       if (!searchText) {
         return getFavoritedTokens;
       } else {
-        return getFavoritedTokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+        return getFavoritedTokens.filter(({ symbol, name }) =>
+          new RegExp(searchText, 'i').test(`${symbol}, ${name}`)
+        );
       }
     }
 
     if (!searchText) {
       return getTokens;
     }
-    return getTokens.filter(({ symbol, name }) => new RegExp(searchText, 'i').test(`${symbol}, ${name}`));
+    return getTokens.filter(({ symbol, name }) =>
+      new RegExp(searchText, 'i').test(`${symbol}, ${name}`)
+    );
   }, [searchText, favorites, onlyFavorite]);
 
   return (
@@ -144,7 +148,7 @@ const TokenList = () => {
         <div className="card__body">
           <div className="inner_scroll">
             {tokensByCondition.length ? (
-              tokensByCondition.map(token => (
+              tokensByCondition.map((token) => (
                 <TokenListItem key={token.address} token={token} onClick={toggleMenuVisible} />
               ))
             ) : (
