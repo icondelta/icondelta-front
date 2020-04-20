@@ -6,7 +6,7 @@ import RouterView from './routes';
 import './styles/buttons.scss';
 import { global } from './styles/global';
 
-function App() {
+const App = () => {
   return (
     <>
       <Global styles={global} />

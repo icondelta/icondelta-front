@@ -81,11 +81,13 @@ const BalanceInfo = () => {
   const { address, balance, loadBalances } = useWalletContext();
 
   useEffect(() => {
-    loadBalances(token);
+    if (address) {
+      loadBalances(token);
+    }
   }, [address, token]);
 
   const handleRefresh = () => {
-    if (!balance.loading) {
+    if (address && !balance.loading) {
       loadBalances(token);
     }
   };
