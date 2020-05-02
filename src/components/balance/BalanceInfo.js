@@ -102,7 +102,7 @@ const BalanceInfo = () => {
       </div>
       <div className="card__body" css={[balanceInfoBody(balance.loading)]}>
         <div>
-          <span></span>
+          <span />
           <span>WALLET</span>
           <span>DEPOSITED</span>
         </div>

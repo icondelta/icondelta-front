@@ -20,8 +20,8 @@ export const toggleFavorite = (token, addFavorites) => (e) => {
   e.preventDefault();
   e.stopPropagation();
 
-  token.favorited ? removeFavorites(token.symbol) : setFavorites(token.symbol);
+  token.favorite ? removeFavorites(token.symbol) : setFavorites(token.symbol);
 
-  token.favorited = !token.favorited;
+  token.favorite = !token.favorite;
   addFavorites(token);
 };

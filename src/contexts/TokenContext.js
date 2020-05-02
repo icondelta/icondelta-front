@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo, useContext, useEffect, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TOKENS } from '../commons/consts';
 import { getFavorites } from '../commons/favorites';
@@ -27,14 +27,15 @@ export default ({ children }) => {
 
   const getTokens = useMemo(() => {
     return tokens.map((token) => {
-      token.favorited = favorites[token.symbol];
+      token.favorite = favorites[token.symbol];
       return token;
     });
   }, [favorites]);
 
-  const getFavoritedTokens = useMemo(() => tokens.filter((token) => favorites[token.symbol]), [
-    favorites,
-  ]);
+  const getFavoritesTokens = useMemo(
+    () => tokens.filter((token) => favorites[token.symbol]),
+    [favorites]
+  );
 
   const addFavorites = useCallback(
     (currToken) => {
@@ -48,7 +49,7 @@ export default ({ children }) => {
 
   return (
     <TokenContext.Provider
-      value={{ token, favorites, addFavorites, getTokens, getFavoritedTokens }}
+      value={{ token, favorites, addFavorites, getTokens, getFavoritesTokens }}
     >
       {children}
     </TokenContext.Provider>

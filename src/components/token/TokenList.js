@@ -106,7 +106,7 @@ const listVisible = (visible) => css`
 const TokenList = () => {
   const [onlyFavorite, setOnlyFavorite] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const { favorites, getTokens, getFavoritedTokens } = useTokenContext();
+  const { favorites, getTokens, getFavoritesTokens: getFavoritesTokens } = useTokenContext();
   const { menuVisible, toggleMenuVisible } = useUiContext();
 
   const handleTextChange = useCallback((e) => {
@@ -120,9 +120,9 @@ const TokenList = () => {
   const tokensByCondition = useMemo(() => {
     if (onlyFavorite) {
       if (!searchText) {
-        return getFavoritedTokens;
+        return getFavoritesTokens;
       } else {
-        return getFavoritedTokens.filter(({ symbol, name }) =>
+        return getFavoritesTokens.filter(({ symbol, name }) =>
           new RegExp(searchText, 'i').test(`${symbol}, ${name}`)
         );
       }
@@ -156,9 +156,9 @@ const TokenList = () => {
             )}
           </div>
         </div>
-        <div className="card__footer"></div>
+        <div className="card__footer" />
       </div>
-      <div css={[overlay(menuVisible)]} onClick={toggleMenuVisible}></div>
+      <div css={[overlay(menuVisible)]} onClick={toggleMenuVisible} />
     </>
   );
 };

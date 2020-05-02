@@ -60,7 +60,6 @@ const History = () => {
           ? history.order.map((order) => <HistoryOrderItem key={order.signature} data={order} />)
           : history.trade.map((trade) => <HistoryTradeItem key={trade.txHash} data={trade} />)}
       </div>
-      {/* {window.getComputedStyle(document.querySelector('.card > inner_scroll'))['lineHeight']} */}
     </div>
   );
 };
