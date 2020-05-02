@@ -5,7 +5,7 @@ import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { useWalletContext } from '../../contexts/WalletContext';
-import { muliply } from '../../utils/converter';
+import { multiply } from '../../utils/converter';
 
 const orderFormWrapper = css`
   border-top: 1px solid transparent;
@@ -58,11 +58,9 @@ const orderButton = css`
 const verifyOrder = (type, order, balance) => {
   switch (type) {
     case 'BUY':
-      if (order.total > balance.icx.deposited) return false;
-      return true;
+      return order.total <= balance.icx.deposited;
     case 'SELL':
-      if (order.amount > balance.token.deposited) return false;
-      return true;
+      return order.amount <= balance.token.deposited;
     default:
       return false;
   }
@@ -85,7 +83,7 @@ const OrderForm = () => {
     const parsed = parseFloat(target.value);
     if (parsed || !target.value) {
       setAmount(parsed);
-      setTotal(muliply(price, parsed));
+      setTotal(multiply(price, parsed));
     }
   };
 
@@ -93,7 +91,7 @@ const OrderForm = () => {
     const parsed = parseFloat(target.value);
     if (parsed || !target.value) {
       setPrice(parsed);
-      setTotal(muliply(parsed, amount));
+      setTotal(multiply(parsed, amount));
     }
   };
 

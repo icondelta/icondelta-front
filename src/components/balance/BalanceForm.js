@@ -7,6 +7,7 @@ import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
 import { icxToLoop } from '../../utils/converter';
 import { useWalletContext } from '../../contexts/WalletContext';
+import { dispatchIconexEvent } from '../../commons/iconex';
 
 const balanceFormWrapper = css`
   border-top: none;
@@ -104,24 +105,21 @@ const TokenBalanceForm = () => {
     }
   };
 
-  const handleIcxSumbit = (e) => {
+  const handleSubmit = (target) => (e) => {
     e.preventDefault();
-    if (!address || !inputs.icxAmount) return;
-
-    if (type === 'DEPOSIT' && balance.icx.wallet < Number(inputs.icxAmount)) return;
-    if (type === 'WITHDRAW' && balance.icx.deposited < Number(inputs.icxAmount)) return;
-
-    console.log(icxToLoop(inputs.icxAmount));
-  };
-
-  const handleTokenSumbit = (e) => {
-    e.preventDefault();
-    if (!address || !inputs.tokenAmount) return;
-
-    if (type === 'DEPOSIT' && balance.token.wallet < Number(inputs.tokenAmount)) return;
-    if (type === 'WITHDRAW' && balance.token.deposited < Number(inputs.tokenAmount)) return;
-
-    console.log(icxToLoop(inputs.tokenAmount));
+    if (!address) {
+      return dispatchIconexEvent({ type: 'REQUEST_ADDRESS' });
+    }
+    if (!inputs[`${target}Amount`]) {
+      return;
+    }
+    if (
+      (type === 'DEPOSIT' && balance[target].wallet < Number(inputs[`${target}Amount`]))
+      || (type === 'WITHDRAW' && balance[target].deposited < Number(inputs[`${target}Amount`]))
+    ) {
+      return;
+    }
+    console.log(icxToLoop(inputs[`${target}Amount`]));
   };
 
   return (
@@ -131,7 +129,7 @@ const TokenBalanceForm = () => {
         <div onClick={changeType}>WITHDRAW</div>
       </div>
       <div className="card__body" css={[balanceFormBody]}>
-        <form onSubmit={handleIcxSumbit}>
+        <form onSubmit={handleSubmit('icx')}>
           <InputWrapper id="icxAmount" label={`${type} ICX`} customStyle={inputWrapperStyle}>
             <div>
               <input
@@ -148,7 +146,7 @@ const TokenBalanceForm = () => {
             </div>
           </InputWrapper>
         </form>
-        <form onSubmit={handleTokenSumbit}>
+        <form onSubmit={handleSubmit('token')}>
           <InputWrapper
             id="tokenAmount"
             label={`${type} ${token?.symbol}`}
