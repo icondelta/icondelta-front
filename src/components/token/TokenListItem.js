@@ -91,11 +91,11 @@ const TokenListItem = ({ token, onClick }) => {
       className={symbol === token.symbol ? 'active' : ''}
       css={[tokenListItem]}
       onClick={onClick}
-      replace={symbol === token.symbol ? true : false}
+      replace={symbol === token.symbol}
     >
       <div>
         <p css={[withSVG]}>
-          <StarIcon onClick={toggleFavorite(token, addFavorites)} fill={token.favorited} />
+          <StarIcon onClick={toggleFavorite(token, addFavorites)} fill={token.favorite} />
           <span>{token.symbol}</span>
         </p>
         <span>{token.name}</span>

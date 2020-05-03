@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /** @jsx jsx */
-import { jsx, css, Global } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 
 import media from '../styles/media';
 import Layout from '../layouts/Layout';
@@ -13,6 +13,8 @@ import OrderBook from '../components/order/OrderBook';
 import History from '../components/history/History';
 import TrollBox from '../components/trollbox/TrollBox';
 import BalanceInfo from '../components/balance/BalanceInfo';
+import { useIconex } from '../hooks/useIconex';
+import { dispatchIconexEvent } from '../commons/iconex';
 
 const wrapper = css`
   display: inline-flex;
@@ -74,6 +76,14 @@ const balanceWrapper = css`
 `;
 
 const Trade = (props) => {
+  useIconex(e => {
+    // TODO: Implement event handler with response data
+  });
+
+  useEffect(() => {
+    window.onload = () => dispatchIconexEvent({ type: 'REQUEST_ADDRESS' });
+  }, []);
+
   return (
     <Layout {...props}>
       <TokenList />

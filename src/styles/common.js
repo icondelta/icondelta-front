@@ -1,41 +1,34 @@
 import { css } from '@emotion/core';
 
+const menuHeaderStyle = `
+  text-transform: uppercase;
+  border-top: 1px solid #e4e5e8;
+  user-select: none;
+  flex: 1 1 auto;
+  cursor: pointer;
+  line-height: 2.5;
+  display: inline-flex;
+  color: #9e9e9e;
+  background-color: #eeeeee;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+`
+
 export const menuHeader = (target) =>
   target
     ? css`
-        display: flex;
-        background: transparent;
+      display: flex;
+      background: transparent;
 
-        ${target} {
-          flex: 1 1 auto;
-          color: #9e9e9e;
-          cursor: pointer;
-          padding: 8px 0;
-          user-select: none;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          text-transform: uppercase;
-          background-color: #eeeeee;
-          border-top: 1px solid #e4e5e8;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
-        }
-      `
+      ${target} {
+        ${menuHeaderStyle}
+      }
+    `
     : css`
-        text-transform: uppercase;
-        border-top: 1px solid #e4e5e8;
-        user-select: none;
-        flex: 1 1;
-        cursor: pointer;
-        line-height: 2.5;
-        display: inline-flex;
-        color: #9e9e9e;
-        background-color: #eeeeee;
-        justify-content: center;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-      `;
+      ${menuHeaderStyle}
+    `;
 
 export const tableHeader = css`
   display: flex;

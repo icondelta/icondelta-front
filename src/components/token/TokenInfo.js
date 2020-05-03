@@ -64,7 +64,7 @@ const TokenInfo = () => {
       </div>
       <div className="card__footer" css={[tokenInfoFooter]}>
         <span onClick={toggleFavorite(token, addFavorites)}>
-          <StarIcon fill={token.favorited} />
+          <StarIcon fill={token.favorite} />
         </span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 import { loadICXBalances, loadTokenBalances } from '../api/icon';
 import { loopToIcx } from '../utils/converter';
@@ -22,30 +22,28 @@ export default ({ children }) => {
 
   const loadBalances = useCallback(
     (token) => {
-      if (address) {
-        setBalance({
-          ...balance,
-          loading: true,
-        });
+      setBalance({
+        ...balance,
+        loading: true,
+      });
 
-        Promise.all([loadICXBalances(address), loadTokenBalances(address, token.address)])
-          .then(([icx, token]) =>
-            setBalance({
-              icx: { wallet: loopToIcx(icx[0]), deposited: loopToIcx(icx[1]) },
-              token: { wallet: loopToIcx(token[0]), deposited: loopToIcx(token[1]) },
-              loading: false,
-            })
-          )
-          .catch((e) => {
-            console.error(e);
-            setBalance({
-              ...balance,
-              loading: false,
-            });
+      Promise.all([loadICXBalances(address), loadTokenBalances(address, token.address)])
+        .then(([icx, token]) =>
+          setBalance({
+            icx: { wallet: loopToIcx(icx[0]), deposited: loopToIcx(icx[1]) },
+            token: { wallet: loopToIcx(token[0]), deposited: loopToIcx(token[1]) },
+            loading: false,
+          }),
+        )
+        .catch((e) => {
+          console.error(e);
+          setBalance({
+            ...balance,
+            loading: false,
           });
-      }
+        });
     },
-    [address, balance]
+    [address, balance],
   );
 
   return (
