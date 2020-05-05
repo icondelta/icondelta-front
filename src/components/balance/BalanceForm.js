@@ -114,8 +114,8 @@ const TokenBalanceForm = () => {
       return;
     }
     if (
-      (type === 'DEPOSIT' && balance[target].wallet < Number(inputs[`${target}Amount`]))
-      || (type === 'WITHDRAW' && balance[target].deposited < Number(inputs[`${target}Amount`]))
+      (type === 'DEPOSIT' && balance[target].wallet < Number(inputs[`${target}Amount`])) ||
+      (type === 'WITHDRAW' && balance[target].deposited < Number(inputs[`${target}Amount`]))
     ) {
       return;
     }

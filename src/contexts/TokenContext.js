@@ -32,10 +32,9 @@ export default ({ children }) => {
     });
   }, [favorites]);
 
-  const getFavoritesTokens = useMemo(
-    () => tokens.filter((token) => favorites[token.symbol]),
-    [favorites]
-  );
+  const getFavoritesTokens = useMemo(() => tokens.filter((token) => favorites[token.symbol]), [
+    favorites,
+  ]);
 
   const addFavorites = useCallback(
     (currToken) => {
