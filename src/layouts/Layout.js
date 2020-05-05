@@ -7,7 +7,6 @@ import Footer from './Footer';
 import media from '../styles/media';
 import UiContextProvider from '../contexts/UiContext';
 import TokenContextProvider from '../contexts/TokenContext';
-import WalletContext from '../contexts/WalletContext';
 
 const container = css`
   margin: 0 auto;
@@ -26,9 +25,7 @@ const Layout = ({ children }) => {
       <TokenContextProvider>
         <UiContextProvider>
           <Header />
-          <WalletContext>
-            <main css={[container]}>{children}</main>
-          </WalletContext>
+          <main css={[container]}>{children}</main>
         </UiContextProvider>
         <Footer />
       </TokenContextProvider>
