@@ -5,7 +5,7 @@ import media from '../../styles/media';
 import OrderBookItem from './OrderBookItem';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { tableHeader, headerSize } from '../../styles/common';
-import { buyOrders, sellOrders } from '../../commons/dummy';
+import { buyOrders, sellOrders } from '../../lib/dummy';
 
 const orderWrapper = css`
   margin: 16px 16px 0;

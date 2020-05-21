@@ -7,7 +7,7 @@ import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
 import { icxToLoop } from '../../utils/converter';
 import { useWalletContext } from '../../contexts/WalletContext';
-import { dispatchIconexEvent } from '../../commons/iconex';
+import { dispatchIconexEvent } from '../../utils/iconex';
 
 const balanceFormWrapper = css`
   border-top: none;

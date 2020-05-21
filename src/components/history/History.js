@@ -5,7 +5,7 @@ import media from '../../styles/media';
 import { menuHeader } from '../../styles/common';
 import HistoryOrderItem from './HistoryOrderItem';
 import HistoryTradeItem from './HistoryTradeItem';
-import { history } from '../../commons/dummy';
+import { history } from '../../lib/dummy';
 import HistoryHeader from './HistoryHeader';
 
 const historyWrapper = css`

@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { Link, useParams } from 'react-router-dom';
 
-import { toggleFavorite } from '../../commons/favorites';
+import { toggleFavorite } from '../../utils/favorites';
 import { useTokenContext } from '../../contexts/TokenContext';
 import StarIcon from '../common/StarIcon';
 import media from '../../styles/media';

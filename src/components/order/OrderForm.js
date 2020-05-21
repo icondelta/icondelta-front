@@ -6,6 +6,7 @@ import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
 import { useWalletContext } from '../../contexts/WalletContext';
 import { multiply } from '../../utils/converter';
+import { dispatchIconexEvent } from '../../utils/iconex';
 
 const orderFormWrapper = css`
   border-top: 1px solid transparent;
@@ -68,7 +69,7 @@ const verifyOrder = (type, order, balance) => {
 
 const OrderForm = () => {
   const { token } = useTokenContext();
-  const { balance } = useWalletContext();
+  const { address, balance } = useWalletContext();
   const [type, setType] = useState('BUY');
 
   const [amount, setAmount] = useState(0);
@@ -98,9 +99,16 @@ const OrderForm = () => {
   const handleOrder = (e) => {
     e.preventDefault();
 
+    if (!address) {
+      dispatchIconexEvent({ type: 'REQUEST_ADDRESS' });
+      return;
+    }
+
     if (!verifyOrder(type, { amount, total }, balance)) {
       alert('Can not order more than you have');
     }
+
+    // TODO: place order
   };
 
   return (
@@ -122,17 +130,7 @@ const OrderForm = () => {
             0 <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
           </span>
         </div>
-        <InputWrapper id="amount" label={`Amount`} customStyle={[orderFormInputWrapper]}>
-          <input
-            id="amount"
-            type="number"
-            min={0}
-            placeholder="0"
-            value={amount || ''}
-            onChange={handleAmountChange}
-          />
-        </InputWrapper>
-        <InputWrapper id="price" label="Price" customStyle={[orderFormInputWrapper]}>
+        <InputWrapper id="price" label="Price (ICX)" customStyle={[orderFormInputWrapper]}>
           <input
             id="price"
             type="number"
@@ -140,6 +138,16 @@ const OrderForm = () => {
             placeholder="0"
             value={price || ''}
             onChange={handlePriceChange}
+          />
+        </InputWrapper>
+        <InputWrapper id="amount" label={`Amount (${token.symbol})`} customStyle={[orderFormInputWrapper]}>
+          <input
+            id="amount"
+            type="number"
+            min={0}
+            placeholder="0"
+            value={amount || ''}
+            onChange={handleAmountChange}
           />
         </InputWrapper>
         <div style={{ paddingTop: '12px' }}>

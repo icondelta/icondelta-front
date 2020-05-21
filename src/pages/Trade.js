@@ -14,7 +14,8 @@ import History from '../components/history/History';
 import TrollBox from '../components/trollbox/TrollBox';
 import BalanceInfo from '../components/balance/BalanceInfo';
 import { useIconex } from '../hooks/useIconex';
-import { dispatchIconexEvent } from '../commons/iconex';
+import { dispatchIconexEvent, responseHandler } from '../utils/iconex';
+import { useWalletContext } from '../contexts/WalletContext';
 
 const wrapper = css`
   display: inline-flex;
@@ -76,9 +77,8 @@ const balanceWrapper = css`
 `;
 
 const Trade = (props) => {
-  useIconex(e => {
-    // TODO: Implement event handler with response data
-  });
+  const { dispatch } = useWalletContext();
+  useIconex(responseHandler(dispatch));
 
   useEffect(() => {
     window.onload = () => dispatchIconexEvent({ type: 'REQUEST_ADDRESS' });

@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TOKENS } from '../commons/consts';
-import { getFavorites } from '../commons/favorites';
+import { TOKENS } from '../lib/consts';
+import { getFavorites } from '../utils/favorites';
 
 const TokenContext = createContext();
 
