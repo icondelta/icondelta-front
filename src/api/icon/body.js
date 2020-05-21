@@ -1,4 +1,4 @@
-import { SCORE_ADDRESS } from '../../commons/consts';
+import { SCORE_ADDRESS } from '../../lib/consts';
 
 const basebody = (method, params) =>
   JSON.stringify({

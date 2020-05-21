@@ -7,7 +7,7 @@ import { useTokenContext } from '../../contexts/TokenContext';
 import { menuHeader } from '../../styles/common';
 import { icxToLoop } from '../../utils/converter';
 import { useWalletContext } from '../../contexts/WalletContext';
-import { dispatchIconexEvent } from '../../commons/iconex';
+import { dispatchIconexEvent } from '../../utils/iconex';
 
 const balanceFormWrapper = css`
   border-top: none;
@@ -114,8 +114,8 @@ const TokenBalanceForm = () => {
       return;
     }
     if (
-      (type === 'DEPOSIT' && balance[target].wallet < Number(inputs[`${target}Amount`]))
-      || (type === 'WITHDRAW' && balance[target].deposited < Number(inputs[`${target}Amount`]))
+      (type === 'DEPOSIT' && balance[target].wallet < Number(inputs[`${target}Amount`])) ||
+      (type === 'WITHDRAW' && balance[target].deposited < Number(inputs[`${target}Amount`]))
     ) {
       return;
     }

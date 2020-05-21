@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const ICONEX_EVENT_RESPONSE = 'ICONEX_RELAY_RESPONSE';
 
