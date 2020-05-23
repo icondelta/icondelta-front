@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { css } from '@emotion/core';
 import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
@@ -36,11 +36,11 @@ const activeStyle = (active) => css`
   & > div:nth-of-type(${active}) {
     color: #fafafa;
     ${active === 1
-      ? css`
+  ? css`
           border-color: #e12343;
           background-color: #e12343;
         `
-      : css`
+  : css`
           border-color: #1763b6;
           background-color: #1763b6;
         `}
@@ -70,22 +70,14 @@ const verifyOrder = (type, order, balance) => {
 const OrderForm = () => {
   const { token } = useTokenContext();
   const { address, balance } = useWalletContext();
-  const [type, setType] = useState('BUY');
 
-  const [amount, setAmount] = useState(0);
+  const [type, setType] = useState('BUY');
   const [price, setPrice] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
 
   const changeType = ({ target }) => {
     type !== target.textContent && setType(target.textContent);
-  };
-
-  const handleAmountChange = ({ target }) => {
-    const parsed = parseFloat(target.value);
-    if (parsed || !target.value) {
-      setAmount(parsed);
-      setTotal(multiply(price, parsed));
-    }
   };
 
   const handlePriceChange = ({ target }) => {
@@ -93,6 +85,14 @@ const OrderForm = () => {
     if (parsed || !target.value) {
       setPrice(parsed);
       setTotal(multiply(parsed, amount));
+    }
+  };
+
+  const handleAmountChange = ({ target }) => {
+    const parsed = parseFloat(target.value);
+    if (parsed || !target.value) {
+      setAmount(parsed);
+      setTotal(multiply(price, parsed));
     }
   };
 
@@ -120,15 +120,11 @@ const OrderForm = () => {
       <form className="card__body" css={[orderForm]} onSubmit={handleOrder}>
         <div>
           <span>Balance:</span>
-          <span>
-            0 <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
-          </span>
+          <span>{`${balance.icx.deposited} ${type === 'BUY' ? 'ICX' : token.symbol}`}</span>
         </div>
         <div css={{ paddingBottom: '8px' }}>
           <span>Available:</span>
-          <span>
-            0 <span>{type === 'BUY' ? 'ICX' : token.symbol}</span>
-          </span>
+          <span>{`${balance.token.deposited} ${type === 'BUY' ? 'ICX' : token.symbol}`}</span>
         </div>
         <InputWrapper id="price" label="Price (ICX)" customStyle={[orderFormInputWrapper]}>
           <input
@@ -152,14 +148,12 @@ const OrderForm = () => {
         </InputWrapper>
         <div style={{ paddingTop: '12px' }}>
           <span>Total:</span>
-          <span>
-            {total || 0} <span>ICX</span>
-          </span>
+          <span>{`${total || 0} ICX`}</span>
         </div>
         <button
           type="submit"
-          className={type === 'BUY' ? 'buy-btn' : 'sell-btn'}
           css={[orderButton]}
+          className={type === 'BUY' ? 'buy-btn' : 'sell-btn'}
         >
           {type}
         </button>
