@@ -6,15 +6,20 @@ import storage from '../utils/storage';
 import { loopToIcx } from '../utils/converter';
 
 const initialBalance = {
-  wallet: 0,
-  deposited: 0,
+  icx: {
+    wallet: 0,
+    deposited: 0
+  },
+  token: {
+    wallet: 0,
+    deposited: 0
+  },
 };
 
 const initialState = {
   address: storage.get('address'),
   balance: {
-    icx: initialBalance,
-    token: initialBalance,
+    ...initialBalance,
     error: '',
     loading: false,
   },
@@ -39,8 +44,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         balance: {
-          icx: initialBalance,
-          token: initialBalance,
+          ...initialBalance,
           error: '',
           loading: true,
         },
@@ -57,7 +61,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         balance: {
-          ...state.balance,
+          ...initialBalance,
           error: action.error,
           loading: false,
         },

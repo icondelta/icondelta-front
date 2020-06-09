@@ -21,15 +21,13 @@ const container = css`
 
 const Layout = ({ children }) => {
   return (
-    <>
-      <TokenContextProvider>
-        <UiContextProvider>
-          <Header />
-          <main css={[container]}>{children}</main>
-        </UiContextProvider>
-        <Footer />
-      </TokenContextProvider>
-    </>
+    <TokenContextProvider>
+      <UiContextProvider>
+        <Header />
+        <main css={[container]}>{children}</main>
+      </UiContextProvider>
+      <Footer />
+    </TokenContextProvider>
   );
 };
 
