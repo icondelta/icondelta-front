@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { css } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';

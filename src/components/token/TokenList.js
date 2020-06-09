@@ -137,7 +137,7 @@ const TokenList = () => {
   }, [searchText, favorites, onlyFavorite]);
 
   return (
-    <>
+    <React.Fragment>
       <div className="card" css={[tokenListWrapper, listVisible(menuVisible)]}>
         <div className="card__title">
           <span css={[onlyFavoriteIconWrapper]}>
@@ -159,7 +159,7 @@ const TokenList = () => {
         <div className="card__footer" />
       </div>
       <div css={[overlay(menuVisible)]} onClick={toggleMenuVisible} />
-    </>
+    </React.Fragment>
   );
 };
 
