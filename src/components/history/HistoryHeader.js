@@ -19,20 +19,20 @@ const HistoryHeader = ({ type }) => {
   return (
     <div css={[historyHeaderWrapper]}>
       {type === 'order' ? (
-        <>
+        <React.Fragment>
           <div>price</div>
           <div>amount</div>
           <div>icx</div>
           <div>filled</div>
           <div>orderedAt</div>
-        </>
+        </React.Fragment>
       ) : (
-        <>
+        <React.Fragment>
           <div>price</div>
           <div>amount</div>
           <div>total</div>
           <div>tradedAt</div>
-        </>
+        </React.Fragment>
       )}
     </div>
   );

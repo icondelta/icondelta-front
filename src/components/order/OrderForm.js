@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
-import { css } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import { menuHeader } from '../../styles/common';
 import InputWrapper from '../common/InputWrapper';
 import { useTokenContext } from '../../contexts/TokenContext';
@@ -36,11 +36,11 @@ const activeStyle = (active) => css`
   & > div:nth-of-type(${active}) {
     color: #fafafa;
     ${active === 1
-  ? css`
+      ? css`
           border-color: #e12343;
           background-color: #e12343;
         `
-  : css`
+      : css`
           border-color: #1763b6;
           background-color: #1763b6;
         `}
@@ -136,7 +136,11 @@ const OrderForm = () => {
             onChange={handlePriceChange}
           />
         </InputWrapper>
-        <InputWrapper id="amount" label={`Amount (${token.symbol})`} customStyle={[orderFormInputWrapper]}>
+        <InputWrapper
+          id="amount"
+          label={`Amount (${token.symbol})`}
+          customStyle={[orderFormInputWrapper]}
+        >
           <input
             id="amount"
             type="number"
