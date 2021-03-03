@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"@emotion/core": "^10.0.28",
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"bignumber.js": "^9.0.0",
 		"dayjs": "^1.8.32",
 		"react": "^16.13.1",
